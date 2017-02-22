@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrpe.fastFood.gui.CartaoPagamentoController">
+   <children>
+      <ImageView fx:id="imagemA" fitHeight="41.0" fitWidth="126.0" layoutX="39.0" layoutY="92.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/gerador-de-cartao-de-credito-visa.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imagemA1" fitHeight="41.0" fitWidth="126.0" layoutX="39.0" layoutY="245.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/gerador-de-cartao-de-credito-visa.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imagemD" fitHeight="49.0" fitWidth="110.0" layoutX="181.0" layoutY="90.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/Hipercard_d57c6_450x450.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imagemD4" fitHeight="49.0" fitWidth="110.0" layoutX="181.0" layoutY="241.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/Hipercard_d57c6_450x450.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imagemC" fitHeight="57.0" fitWidth="63.0" layoutX="341.0" layoutY="86.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/Elo_logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imagemC3" fitHeight="57.0" fitWidth="63.0" layoutX="341.0" layoutY="238.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/Elo_logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imagemB" fitHeight="58.0" fitWidth="96.0" layoutX="453.0" layoutY="234.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/640px-MasterCard_logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imagemB2" fitHeight="58.0" fitWidth="96.0" layoutX="453.0" layoutY="86.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/640px-MasterCard_logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="32.0" layoutY="14.0" text="Débito">
+         <font>
+            <Font name="Bangla MN" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="172.0" text="Crédito">
+         <font>
+            <Font name="Bangla MN" size="24.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="buttonexit" layoutX="470.0" layoutY="345.0" onAction="#BotaoSair" prefHeight="41.0" prefWidth="85.0" text="Voltar">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="cartaoVisaDedito" layoutX="42.0" layoutY="85.0" onAction="#BotaoVisaDedito" prefHeight="58.0" prefWidth="126.0" text=" " />
+      <JFXButton fx:id="cartaoHiperDedito" layoutX="173.0" layoutY="86.0" onAction="#BotaoHiperDedito" prefHeight="58.0" prefWidth="126.0" text=" " />
+      <JFXButton fx:id="cartaoEloDedito" layoutX="304.0" layoutY="86.0" onAction="#BotaoEloDedito" prefHeight="58.0" prefWidth="126.0" text=" " />
+      <JFXButton fx:id="cartaoMasterDedito" layoutX="433.0" layoutY="85.0" onAction="#BotaoMasterDedito" prefHeight="58.0" prefWidth="126.0" text=" " />
+      <JFXButton fx:id="cartaoVisaCredito" layoutX="47.0" layoutY="236.0" onAction="#BotaoVisaCredito" prefHeight="58.0" prefWidth="126.0" text=" " />
+      <JFXButton fx:id="cartaoHiperCredito" layoutX="178.0" layoutY="237.0" onAction="#BotaoHiperCredito" prefHeight="58.0" prefWidth="126.0" text=" " />
+      <JFXButton fx:id="cartaoEloCredito" layoutX="309.0" layoutY="237.0" onAction="#BotaoEloCredito" prefHeight="58.0" prefWidth="126.0" text=" " />
+      <JFXButton fx:id="cartaoMasterCredito" layoutX="438.0" layoutY="236.0" onAction="#BotaoMasterCredito" prefHeight="58.0" prefWidth="126.0" text=" " />
+   </children>
+</AnchorPane>

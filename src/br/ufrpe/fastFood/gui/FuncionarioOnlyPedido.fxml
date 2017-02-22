@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrpe.fastFood.gui.FazerPedidoFuncController">
+   <children>
+      <ImageView fx:id="imgPedido" fitHeight="132.0" fitWidth="159.0" layoutX="230.0" layoutY="120.0">
+         <image>
+            <Image url="@icon-produto.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="botaoPedido" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="160.0" layoutY="84.0" onAction="#botaoPedidoAction" prefHeight="203.0" prefWidth="299.0" ripplerFill="#00bcd4" text="PEDIDO" textFill="#ff9800">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="oVoltar" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="38.0" layoutY="334.0" onAction="#botaoVoltarAction" prefHeight="41.0" prefWidth="113.0" ripplerFill="#00bcd4" text="VOLTAR" textFill="#ff9800">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

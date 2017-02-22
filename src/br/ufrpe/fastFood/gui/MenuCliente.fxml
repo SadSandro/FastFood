@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrpe.fastFood.gui.MenuClienteController">
+   <children>
+      <ImageView fx:id="imgComprar" fitHeight="190.0" fitWidth="200.0" layoutX="52.0" layoutY="80.0">
+         <image>
+            <Image url="@icon-compras.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAlterar" fitHeight="200.0" fitWidth="186.0" layoutX="378.0" layoutY="70.0">
+         <image>
+            <Image url="@icon-editar.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="buttonedit" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="300.0" layoutY="7.0" onAction="#BotaoAlterarDados" prefHeight="309.0" prefWidth="296.0" ripplerFill="#ff9800" text="Alterar dados" textFill="#03a9f4" />
+      <JFXButton fx:id="buttonexit" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutY="316.0" onAction="#BotaoSair" prefHeight="82.0" prefWidth="600.0" ripplerFill="#ff9800" text="Sair" textFill="#03a9f4" />
+      <JFXButton fx:id="buttonbuy" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="1.0" onAction="#BotaoComprar" prefHeight="318.0" prefWidth="302.0" ripplerFill="#ff9800" text="Comprar" textFill="#03a9f4" />
+   </children>
+</AnchorPane>

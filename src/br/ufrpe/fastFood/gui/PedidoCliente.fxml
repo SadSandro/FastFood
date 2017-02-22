@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="14.0" layoutY="39.0" prefHeight="200.0" prefWidth="188.0" ripplerFill="#ff9500" text="Adicionar ao carrinho" textFill="#ff9800" />
+      <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="195.0" layoutY="39.0" prefHeight="200.0" prefWidth="188.0" ripplerFill="#ff9500" text="Remover do carrinho" textFill="#ff9800" />
+      <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="390.0" layoutY="39.0" prefHeight="200.0" prefWidth="188.0" ripplerFill="#ff9000" text="Listar itens" textFill="#ff9800" />
+      <JFXButton buttonType="RAISED" layoutX="31.0" layoutY="330.0" prefHeight="56.0" prefWidth="98.0" ripplerFill="#ff9500" text="SAIR" textFill="#ff9800" />
+      <JFXButton buttonType="RAISED" layoutX="480.0" layoutY="330.0" prefHeight="56.0" prefWidth="98.0" ripplerFill="#ff9500" text="CONCLUIR" textFill="#ff9800" />
+      <ImageView fitHeight="125.0" fitWidth="163.0" layoutX="46.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icon-masis.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="227.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icon-menos.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="422.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icon-compras.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
