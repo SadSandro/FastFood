@@ -14,8 +14,8 @@ public class Venda implements Serializable{
 	private static final long serialVersionUID = -7090611508830771306L;
 	private String idVenda;
 	private String idCliente;
-	private LocalDateTime dataHoraVenda;
 	private double valorTotal;
+	private LocalDateTime dataHoraVenda;
 	private ArrayList<Combo> combos;
 	private ArrayList<Produto> produtos;
 	private int contCombo = 0;

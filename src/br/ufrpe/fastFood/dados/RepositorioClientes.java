@@ -51,8 +51,7 @@ public class RepositorioClientes implements RepositorioClienteInterface, Seriali
 			}
 		}
 
-		if(cont > 0)
-		{
+		if(cont > 0){
 			throw new OJEException( c.getId());
 		}
 		else
@@ -83,7 +82,6 @@ public class RepositorioClientes implements RepositorioClienteInterface, Seriali
 
 	public void removerCliente(String id) throws ONFException{	
 
-		Cliente c = new Cliente();
 		c = this.buscarCliente(id);
 
 		if (c.getId() != null) {
@@ -186,7 +184,7 @@ public class RepositorioClientes implements RepositorioClienteInterface, Seriali
 				try{
 					oInput.close();
 				}catch(IOException e){
-					System.out.println("Não foi possível fechar o arquivo!");
+					System.out.println("Nï¿½o foi possï¿½vel fechar o arquivo!");
 					e.printStackTrace();
 				}
 			}

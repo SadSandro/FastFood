@@ -244,11 +244,6 @@ public class Fachada {
 
 	}
 
-
-
-
 	// end da fachada
-
-
 
 }
