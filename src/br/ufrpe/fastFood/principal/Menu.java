@@ -676,12 +676,12 @@ public class Menu {
 							System.out.print("Digite sua senha: ");
 							tempSenhaAdmin = in.nextLine();
 
-							try
-							{
+							try{
 								end = Fachada.getInstancia().loginFuncionario(tempIdAdmin, tempSenhaAdmin);
-							}catch(WPException exc)
-							{
+							
+							}catch(WPException exc){	
 								System.out.println(exc.getMessage());
+								
 							} catch (ONFException e) {
 								System.out.println(e.getMessage());
 							}

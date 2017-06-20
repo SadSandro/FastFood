@@ -23,8 +23,7 @@ public class Cliente extends Pessoa  implements Serializable{
 		this.email = email;
 	}
 	
-	public Cliente()
-	{
+	public Cliente(){
 		super();
 	}
 	
@@ -48,12 +47,10 @@ public class Cliente extends Pessoa  implements Serializable{
 
 		if( this.senha.equals(oldsenha)){
 			this.setSenha(newsenha);
-		}
-		else
-		{
+			
+		}else{
 			throw new WPException(oldsenha);
 		}
-
 	}
 	
 
@@ -82,15 +79,12 @@ public class Cliente extends Pessoa  implements Serializable{
 
 	}
 	
-	public boolean equalsSenhaOnly(String senha)
-	{
+	public boolean equalsSenhaOnly(String senha){
 		boolean resultado = false;
 		
-		if( senha != null )
-		{
+		if( senha != null ){
 			resultado = senha.equals(this.senha);
 		}
-		
 		return resultado;
 	}
 	

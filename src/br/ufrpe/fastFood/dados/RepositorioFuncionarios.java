@@ -130,12 +130,10 @@ public class RepositorioFuncionarios implements RepositorioFuncionarioInterface,
 
 		boolean b = false;
 		Funcionario f = new Funcionario();
-		f = this.buscarFuncionario(id);		
-		if(f.getId() != null)
-		{
-
+		f = this.buscarFuncionario(id);	
+		
+		if(f.getId() != null){
 			b = f.equalsSenhaFunc(senha);
-
 		}
 		return b;
 	}
@@ -190,7 +188,7 @@ public class RepositorioFuncionarios implements RepositorioFuncionarioInterface,
 				try{
 					oInput.close();
 				}catch(IOException e){
-					System.out.println("Não foi possível fechar o arquivo!");
+					System.out.println("Nï¿½o foi possï¿½vel fechar o arquivo!");
 					e.printStackTrace();
 				}
 			}

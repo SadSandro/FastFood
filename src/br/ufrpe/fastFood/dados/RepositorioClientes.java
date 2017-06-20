@@ -43,23 +43,20 @@ public class RepositorioClientes implements RepositorioClienteInterface, Seriali
 	public void cadastrarCliente(Cliente c) throws OJEException {
 		int cont = 0;
 
-		for(int x = 0 ; x < this.listaClientes.size() ; x++)
-		{
-			if(this.listaClientes.get(x).getId().equals(c.getId()))
-			{
+		for(int x = 0 ; x < this.listaClientes.size() ; x++){
+			
+			if(this.listaClientes.get(x).getId().equals(c.getId())){
+				
 				cont++;
 			}
 		}
 
 		if(cont > 0){
 			throw new OJEException( c.getId());
-		}
-		else
-		{
+			
+		}else{
 			this.listaClientes.add(c);
 		}
-
-
 	}
 
 	public Cliente buscarCliente(String id) throws ONFException{

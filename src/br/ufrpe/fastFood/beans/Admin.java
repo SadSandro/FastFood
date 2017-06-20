@@ -44,9 +44,4 @@ public class Admin extends Funcionario implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-
-	
-	
-
 }
