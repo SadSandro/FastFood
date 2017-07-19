@@ -65,8 +65,8 @@ public class GerenciadorFuncionarios {
 		
 	}
 	
-	public boolean loginAdmin(String id, String senha) throws ONFException, WPException
-	{
+	public boolean loginAdmin(String id, String senha) throws ONFException, WPException{
+		
 		return this.repositorio.loginAdmin(id, senha);
 	}
 

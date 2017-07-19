@@ -71,9 +71,7 @@ public class GerenciadorClientes {
 	public boolean loginCliente(String id, String senha) throws ONFException, WPException {
 		
 		return this.repositorio.loginCliente(id, senha); 
-
 	}
-
 
 	public void alterarSenha(String id, String senhaold, String senhanew) throws ONFException, WPException {		
 
@@ -86,6 +84,12 @@ public class GerenciadorClientes {
 
 		return this.repositorio.getNomecliente(id);
 
+	}
+	
+	public boolean loginCliente(String id, String senha) throws ONFException, WPException {
+		
+		 return this.repositorio.loginCliente(id, senha);
+		
 	}
 
 }
