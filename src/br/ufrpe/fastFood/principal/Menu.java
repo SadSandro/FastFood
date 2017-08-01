@@ -143,19 +143,18 @@ public class Menu {
 								System.out.print("Digite sua senha: ");
 								tempSenha = in.nextLine();
 
-								try
-								{
+								try{
 									resultado1 = Fachada.getInstancia().loginCliente(tempId, tempSenha);
 
 								}
 
-								catch(ONFException exc1)
-								{
+								catch(ONFException exc1){
+									
 									System.out.println(exc1.getMessage());
 									System.out.println(exc1.getidObjeto());
-								}
-								catch(WPException exc)
-								{
+									
+								}catch(WPException exc){
+									
 									System.out.println(exc.getMessage());
 									System.out.println("senha incorreta: " + exc.getSenhaErrada());
 

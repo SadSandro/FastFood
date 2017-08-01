@@ -43,20 +43,17 @@ public class RepositorioFuncionarios implements RepositorioFuncionarioInterface,
 
 		int cont = 0;
 		
-		for(int x = 0 ; x < this.listaFuncionarios.size() ; x++)
-		{
-			if(this.listaFuncionarios.get(x).getId().equals(f.getId()))
-			{
+		for(int x = 0 ; x < this.listaFuncionarios.size() ; x++){
+			
+			if(this.listaFuncionarios.get(x).getId().equals(f.getId())){
 				cont++;
 			}
 		}
 		
-		if(cont > 0)
-		{
-			throw new OJEException( f.getId());
-		}
-		else
-		{
+		if(cont > 0){
+			throw new OJEException(f.getId());
+			
+		}else{
 			this.listaFuncionarios.add(f);
 		}
 				
@@ -72,9 +69,8 @@ public class RepositorioFuncionarios implements RepositorioFuncionarioInterface,
 
 		if (i >= 0) {
 			resultado = this.listaFuncionarios.get(i);
-		}
-		else
-		{
+			
+		}else{
 			throw new ONFException(id);
 		}
 

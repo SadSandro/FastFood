@@ -44,22 +44,18 @@ public class RepositorioVendas implements RepositorioVendaInterface, Serializabl
 		
 	}
 	
-	public Venda buscarVenda(String idVenda) throws ONFException
-	{
+	public Venda buscarVenda(String idVenda) throws ONFException{
 		
 		Venda v = new Venda();
 		
 		int i = this.procurarIndiceV(idVenda);
 
-		if( i >= 0 )
-		{		
+		if( i >= 0 ){		
 			v = this.listaVendas.get(i);
-		}
-		else
-		{
+			
+		}else{
 			throw new ONFException(idVenda);
 		}
-	
 		return v;
 	}
 
@@ -85,7 +81,7 @@ public class RepositorioVendas implements RepositorioVendaInterface, Serializabl
 	
 	public int procurarIndiceV(String idVenda)
 	{
-		// Função que procura indice especifico , enxugando os codigos de remover e adicionar
+		// Funï¿½ï¿½o que procura indice especifico , enxugando os codigos de remover e adicionar
 		
 		int cont = -1; 
 
@@ -126,7 +122,7 @@ public class RepositorioVendas implements RepositorioVendaInterface, Serializabl
 				try{
 					oInput.close();
 				}catch(IOException e){
-					System.out.println("Não foi possível fechar o arquivo!");
+					System.out.println("Nï¿½o foi possï¿½vel fechar o arquivo!");
 					e.printStackTrace();
 				}
 			}

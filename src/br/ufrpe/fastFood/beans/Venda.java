@@ -12,6 +12,7 @@ public class Venda implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -7090611508830771306L;
+	
 	private String idVenda;
 	private String idCliente;
 	private double valorTotal;
@@ -27,35 +28,25 @@ public class Venda implements Serializable{
 		this.dataHoraVenda = LocalDateTime.now();
 		this.idCliente = idCliente;
 		
-		if(pegadomain >= 0 && pegadomain < 10)
-		{
+		if(pegadomain >= 0 && pegadomain < 10){
 			this.idVenda = "000" + pegadomain;
-		}
-		
-		else if(pegadomain >= 10 && pegadomain < 100)
-		{
-			this.idVenda = "00" + pegadomain;
-		}
-		
-		else if(pegadomain >= 100 && pegadomain < 1000)
-		{
-			this.idVenda = "0" + pegadomain;
-		}
-		
-		else if(pegadomain >= 1000 && pegadomain < 10000)
-		{
-			this.idVenda = "" + pegadomain;
-		}	
 			
+		}else if(pegadomain >= 10 && pegadomain < 100){
+			this.idVenda = "00" + pegadomain;
+			
+		}else if(pegadomain >= 100 && pegadomain < 1000){
+			this.idVenda = "0" + pegadomain;
+			
+		}else if(pegadomain >= 1000 && pegadomain < 10000){
+			this.idVenda = "" + pegadomain;
+		}		
 	}
 	
 	public Venda(String IdVenda, String IdCliente){
 		
-		
 	}
 	
-	public Venda()
-	{
+	public Venda(){
 		
 	}
 	
@@ -68,152 +59,109 @@ public class Venda implements Serializable{
 		return this.valorTotal;
 	}
 	
-	public String getIdVenda()
-	{
+	public String getIdVenda(){
 		return this.idVenda;
 	}
 	
-	public String getIdcliente()
-	{
+	public String getIdcliente(){
 		return this.idCliente;
 	}
 	
-	
-	
-	public void setValorTotalAdicionar(double ValorTotal)
-	{
+	public void setValorTotalAdicionar(double ValorTotal){
 		this.valorTotal += ValorTotal;
 	}
 	
-	public void setValorTotalDiminuir(double ValorTotal)
-	{
+	public void setValorTotalDiminuir(double ValorTotal){
 		this.valorTotal -= ValorTotal;
 	}
 	
-	public void setValorTotal(double ValorTotal)
-	{
+	public void setValorTotal(double ValorTotal){
 		this.valorTotal = ValorTotal;
 	}
 	
-	
-	
-	public void comprarCombo(Combo a)
-	{
-		if(this.contCombo == 0)
-		{
+	public void comprarCombo(Combo a){
+		
+		if(this.contCombo == 0){
 			this.combos = new ArrayList<>();
 			this.combos.add(a);
 			this.setValorTotalAdicionar(a.getValor());
 			contCombo++;
-		}
-		else
-		{
+			
+		}else{
 			this.combos.add(a);
 			this.setValorTotalAdicionar(a.getValor());
 			contCombo++;
-		}
-		
-		
+		}	
 	}
 	
-	public void comprarProduto(Produto p)
-	{
-		if(this.contProduto == 0)
-		{
+	public void comprarProduto(Produto p){
+		
+		if(this.contProduto == 0){
 			this.produtos = new ArrayList<>();
 			this.produtos.add(p);
 			this.setValorTotalAdicionar(p.getValor());
 			contProduto++;
-		}
-		else
-		{
+			
+		}else{
 			this.produtos.add(p);
 			this.setValorTotalAdicionar(p.getValor());
 			contProduto++;
 		}
 	}
 	
-	public Produto BuscarProduto(String codigo) throws ONFException
-	{
+	public Produto BuscarProduto(String codigo) throws ONFException{
 		Produto a = new Produto();
-
 		
-		for( int x = 0 ; x < produtos.size() ; x++)
-		{
-			if(this.produtos.get(x).getCodigo().equals(codigo))
-			{
+		for( int x = 0 ; x < produtos.size() ; x++){
+			if(this.produtos.get(x).getCodigo().equals(codigo)){
 				a = this.produtos.get(x);
-
 			}
-			
 		}
 		
-		if(a.getCodigo() == null)
-		{
+		if(a.getCodigo() == null){
 			throw new ONFException(codigo);
 		}
-		
-		return a;
-		
+		return a;	
 	}
 	
-	public Combo BuscarCombo(String codigo) throws ONFException
-	{
+	public Combo BuscarCombo(String codigo) throws ONFException{
 		Combo a = new Combo();
 		
-		
-		for( int x = 0 ; x < combos.size() ; x++)
-		{
-			if(this.combos.get(x).getCodigo().equals(codigo))
-			{
+		for( int x = 0 ; x < combos.size() ; x++){
+			if(this.combos.get(x).getCodigo().equals(codigo)){
 				
-				a = this.combos.get(x);
-				
+				a = this.combos.get(x);		
 			}
 		}
 		
-		if(a.getCodigo() == null)
-		{
+		if(a.getCodigo() == null){
 			throw new ONFException(codigo);
 		}
-		
 		return a;		
 	}
 	
-
-	
-	public void removerCombo(String codigo) throws ONFException
-	{
+	public void removerCombo(String codigo) throws ONFException{
 		Combo a = new Combo();
 		a = this.BuscarCombo(codigo);
 		
-		if( a != null)
-		{
+		if( a != null){
 			this.setValorTotalDiminuir(a.getValor());
 			this.combos.remove(a);
 			contCombo--;
 		}
 	}
 	
-	public void removerProduto(String codigo) throws ONFException
-	{
+	public void removerProduto(String codigo) throws ONFException {
 		Produto a = new Produto();
 		a = this.BuscarProduto(codigo);
 		
-		if( a != null )
-		{
+		if( a != null ){
 			this.setValorTotalDiminuir(a.getValor());
 			this.produtos.remove(a);
 			contProduto--;
 		}
 	}
-	
 
-	
-
-	
-	
-//	
 //	public boolean equals(Venda v){
 //		boolean resultado = false;
 //		if (v != null){
@@ -230,12 +178,10 @@ public class Venda implements Serializable{
 		buffer.append("\n\nVenda: " + this.getIdVenda() + "\n");
 		buffer.append("Id do cliente: " + this.idCliente + "\n");
 		
-		if(contProduto > 0)
-		{
+		if(contProduto > 0){
 			buffer.append("Produtos: " + this.produtos.toString() + "\n");
-		}
-		if(contCombo > 0)
-		{
+			
+		}if(contCombo > 0){
 			buffer.append("Combos: " + this.combos.toString() + "\n");
 		}
 		
@@ -243,7 +189,4 @@ public class Venda implements Serializable{
 		
 		return buffer.toString();				
 	}
-		
-
-	
 }

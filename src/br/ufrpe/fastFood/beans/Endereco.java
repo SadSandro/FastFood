@@ -91,14 +91,13 @@ public class Endereco implements Serializable {
 		StringBuffer buffer =  new StringBuffer();
 		
 		
-		buffer.append("\n       ENDEREÇO      \n");
-		buffer.append("Rua: " + this.getRua() + ", nº " + this.getNumero());
+		buffer.append("\n-----------ENDERECO-------------\n");
+		buffer.append("Rua: " + this.getRua() + ", nï¿½ " + this.getNumero());
 		buffer.append("\nBairro: " + this.getBairro());
 		buffer.append("\nCidade: " + this.getCidade());
 		buffer.append("\nEstado: " + this.getEstado());
 		buffer.append("\nFone: " + this.getTelefone());
-		
-		buffer.append("\n============================\n");
+		buffer.append("\n=================================\n");
 		
 		return buffer.toString();
 	}

@@ -68,9 +68,7 @@ public class Funcionario extends Pessoa implements Serializable{
 			if(senha.equals(this.senha)){
 				
 				retorno = true;
-			}
-			else
-			{
+			}else{
 				throw new WPException(senha);
 			}
 		}
