@@ -124,6 +124,17 @@ public class Venda implements Serializable{
 		return a;	
 	}
 	
+	public void removerProduto(String codigo) throws ONFException {
+		Produto a = new Produto();
+		a = this.BuscarProduto(codigo);
+		
+		if( a != null ){
+			this.setValorTotalDiminuir(a.getValor());
+			this.produtos.remove(a);
+			contProduto--;
+		}
+	}
+	
 	public Combo BuscarCombo(String codigo) throws ONFException{
 		Combo a = new Combo();
 		
@@ -151,16 +162,6 @@ public class Venda implements Serializable{
 		}
 	}
 	
-	public void removerProduto(String codigo) throws ONFException {
-		Produto a = new Produto();
-		a = this.BuscarProduto(codigo);
-		
-		if( a != null ){
-			this.setValorTotalDiminuir(a.getValor());
-			this.produtos.remove(a);
-			contProduto--;
-		}
-	}
 
 //	public boolean equals(Venda v){
 //		boolean resultado = false;

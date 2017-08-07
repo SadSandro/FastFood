@@ -1,5 +1,5 @@
-
 package br.ufrpe.fastFood.principal;
+
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -23,7 +23,8 @@ public class Menu {
 	public static void main(String[] args) {
 
 		char opcao;
-		int contFunc = 0, contCliente = 0, contProduto = 0, contVenda = 0 , contCombo = 0 , contPromoCombo = 0 , contPromoProduto = 0;
+		int contFunc = 0, contCliente = 0, contProduto = 0, contVenda = 0, contCombo = 0, contPromoCombo = 0,
+				contPromoProduto = 0;
 
 		String senha1 = "admin";
 		String login = "admin";
@@ -143,23 +144,22 @@ public class Menu {
 								System.out.print("Digite sua senha: ");
 								tempSenha = in.nextLine();
 
-								try{
+								try {
 									resultado1 = Fachada.getInstancia().loginCliente(tempId, tempSenha);
 
 								}
 
-								catch(ONFException exc1){
-									
+								catch (ONFException exc1) {
+
 									System.out.println(exc1.getMessage());
 									System.out.println(exc1.getidObjeto());
-									
-								}catch(WPException exc){
-									
+
+								} catch (WPException exc) {
+
 									System.out.println(exc.getMessage());
 									System.out.println("senha incorreta: " + exc.getSenhaErrada());
 
 								}
-
 
 							} while (resultado1 != true);
 
@@ -179,18 +179,15 @@ public class Menu {
 
 								case '1':
 
-									if( contCombo > 0 || contProduto > 0 || contPromoCombo > 0 || contPromoProduto > 0)
-									{
+									if (contCombo > 0 || contProduto > 0 || contPromoCombo > 0
+											|| contPromoProduto > 0) {
 										int aux40 = 0;
 										int somethingcomprado = 0;
-
 
 										contVenda++;
 										Venda venda = new Venda(contVenda, tempId);
 
-										while( aux40 != 6)
-										{
-
+										while (aux40 != 6) {
 
 											System.out.println("===========Compra==============");
 											System.out.println("1 - Produto");
@@ -206,21 +203,18 @@ public class Menu {
 											opcao = in.next().charAt(0);
 											in.nextLine();
 
-
-											switch(opcao)
-											{
+											switch (opcao) {
 											// COMPRAR PRODUTOOOOOO
 
 											case '1':
 
 												if (contProduto > 0) {
-													System.out.println(
-															"----------Produtos----------\n" + Fachada.getInstancia().listarProdutos());
+													System.out.println("----------Produtos----------\n"
+															+ Fachada.getInstancia().listarProdutos());
 
-
-													try
-													{
-														System.out.println("\nDigite o codigo do Produto que voce deseja");
+													try {
+														System.out.println(
+																"\nDigite o codigo do Produto que voce deseja");
 														String codigo = in.nextLine();
 
 														Produto p = new Produto();
@@ -231,34 +225,28 @@ public class Menu {
 														somethingcomprado++;
 														System.out.println("Pedido adicionado ao carrinho com sucesso");
 
-													}	
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println(exc.getidObjeto());
 													}
-
-
-
 
 												} else {
 													System.out.println("Nenhum produto cadastrado no estoque");
 												}
 
-												break; // BREAK DA FUNCAO DE COMPRA PRODUTO
-
+												break; // BREAK DA FUNCAO DE
+														// COMPRA PRODUTO
 
 											case '2':
 
-												if( contCombo > 0)
-												{
+												if (contCombo > 0) {
 
-													System.out.println(" ==================Combos =================\n" + Fachada.getInstancia().listarCombos());
+													System.out.println(" ==================Combos =================\n"
+															+ Fachada.getInstancia().listarCombos());
 
-
-													try
-													{
-														System.out.println("\nDigite o codigo do combo que voce deseja");
+													try {
+														System.out
+																.println("\nDigite o codigo do combo que voce deseja");
 														String codigo = in.nextLine();
 
 														Combo c = new Combo();
@@ -268,155 +256,127 @@ public class Menu {
 														venda.comprarCombo(c);
 														somethingcomprado++;
 														System.out.println("Pedido adicionado ao carrinho com sucesso");
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
-														System.out.println("Id do objeto nao encontrado: " + exc.getidObjeto());
+														System.out.println(
+																"Id do objeto nao encontrado: " + exc.getidObjeto());
 													}
 
-
-
-												}
-												else
-												{
+												} else {
 													System.out.println("Nenhum combo cadastrado no estoque");
 												}
 
-												break; // BREAK DA FUNCAO DE COMPRA DE COMBO
+												break; // BREAK DA FUNCAO DE
+														// COMPRA DE COMBO
 
 											case '3':
 
-												if( contPromoProduto > 0)
-												{
-													System.out.println("===============Promocoes de produto===========\n"
-															+ Fachada.getInstancia().listarProdutoPromotion());
-
-
+												if (contPromoProduto > 0) {
+													System.out
+															.println("===============Promocoes de produto===========\n"
+																	+ Fachada.getInstancia().listarProdutoPromotion());
 
 													System.out.println("\nDigite o codigo da promocao desejada");
 													String codigo = in.nextLine();
 
 													PromocaoProduto pp = new PromocaoProduto();
 
-													try
-													{
+													try {
 														pp = Fachada.getInstancia().buscarPromocaoProduto(codigo);
 
 														venda.comprarPromoProduto(pp);
 														somethingcomprado++;
 														System.out.println("Pedido adicionado ao carrinho com sucesso");
 
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
-														System.out.println("Id do objeto nao encontrado: " + exc.getidObjeto());
+														System.out.println(
+																"Id do objeto nao encontrado: " + exc.getidObjeto());
 													}
 
-
-
-												}
-												else
-												{
-													System.out.println("Nenhuma promocao de produto cadastrada no estoque");
+												} else {
+													System.out.println(
+															"Nenhuma promocao de produto cadastrada no estoque");
 												}
 
-												break; // BREAK DA FUNCAO DE COMPRA DE PROMOCAO DE PRODOUTO
-
+												break; // BREAK DA FUNCAO DE
+														// COMPRA DE PROMOCAO DE
+														// PRODOUTO
 
 											case '4':
-												if( contPromoCombo > 0 )
-												{
+												if (contPromoCombo > 0) {
 													System.out.println("============Promocoes de combo============\n"
 															+ Fachada.getInstancia().listarCombosPromotion());
-
-
 
 													System.out.println("\nDigite o codigo da promocao desejada:");
 													String codigo = in.nextLine();
 
 													PromocaoCombo pc = new PromocaoCombo();
-													try
-													{
+													try {
 
 														pc = Fachada.getInstancia().buscarPromocaoCombo(codigo);
 														venda.comprarPromoCombo(pc);
 														somethingcomprado++;
 														System.out.println("Pedido adicionado ao carrinho com sucesso");
 
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println("Id do objeto: " + exc.getidObjeto());
 													}
 
-												}
-												else
-												{
-													System.out.println("Nenhuma promocao de produto cadastrada no estoque");
+												} else {
+													System.out.println(
+															"Nenhuma promocao de produto cadastrada no estoque");
 												}
 
-												break; // BREAK DA FUNCAO DE COMPRA DE PROMOCAO DE COMBO
-
+												break; // BREAK DA FUNCAO DE
+														// COMPRA DE PROMOCAO DE
+														// COMBO
 
 											case '5':
 
+												if (somethingcomprado > 0) {
 
-												if(somethingcomprado > 0)
-												{
-
-													System.out.println("Seu pedido tem o valor de: " + venda.getValorTotal() +"\n");
+													System.out.println("Seu pedido tem o valor de: "
+															+ venda.getValorTotal() + "\n");
 													boolean resultado100 = false;
-													do
-													{
+													do {
 														System.out.println("Digite sua senha para confirmar o pedido");
 														String confirmasenha = in.nextLine();
 
-														try
-														{
+														try {
 
-															resultado100 = Fachada.getInstancia().loginCliente(tempId, confirmasenha);
+															resultado100 = Fachada.getInstancia().loginCliente(tempId,
+																	confirmasenha);
 															Fachada.getInstancia().cadastrarVenda(venda);
 
-														}
-														catch(ONFException exc)	
-														{
+														} catch (ONFException exc) {
 															System.out.println(exc.getMessage());
-														}
-														catch(WPException exc)
-														{
+														} catch (WPException exc) {
 															System.out.println(exc.getMessage());
 															System.out.println(exc.getSenhaErrada());
 														}
 
+													} while (resultado100 == false);
 
-
-													}while( resultado100 == false);
-
-													System.out.println("Compra realizada com sucesso\nPressione enter para continuar");
+													System.out.println(
+															"Compra realizada com sucesso\nPressione enter para continuar");
 													in.nextLine();
 													aux40 = 6;
 
-
-												}
-												else
-												{
+												} else {
 													System.out.println("Nenhum pedido realizado");
 												}
 												break; //
 
 											case '6':
-												if(somethingcomprado > 0)
-												{
+												if (somethingcomprado > 0) {
 													int aux8000 = 0;
 
-													while( aux8000 != 5)
-													{
+													while (aux8000 != 5) {
 
-
-														System.out.println("===========Remover do carrinho==============");
+														System.out.println(
+																"===========Remover do carrinho==============");
 														System.out.println("1 - Produto");
 														System.out.println("2 - Combo");
 														System.out.println("3 - Promocao de Produto");
@@ -427,9 +387,7 @@ public class Menu {
 														opcao = in.next().charAt(0);
 														in.nextLine();
 
-
-														switch(opcao)
-														{
+														switch (opcao) {
 
 														case '1':
 
@@ -439,19 +397,13 @@ public class Menu {
 															Produto p = new Produto();
 															p = venda.BuscarProduto(onemoretime);
 
-															if( p.getCodigo() != null)
-															{
+															if (p.getCodigo() != null) {
 																somethingcomprado--;
 																venda.removerProduto(onemoretime);
 																System.out.println("Produto removido com sucesso");
-															}
-															else
-															{
+															} else {
 																System.out.println("pedido nao realizado");
 															}
-
-
-
 
 															break;
 
@@ -463,14 +415,11 @@ public class Menu {
 															Combo c = new Combo();
 															c = venda.BuscarCombo(onemoretime1);
 
-															if( c.getCodigo() != null)
-															{
+															if (c.getCodigo() != null) {
 																somethingcomprado--;
 																venda.removerCombo(onemoretime1);
 																System.out.println("Combo removido com sucesso");
-															}
-															else
-															{
+															} else {
 																System.out.println("pedido nao realizado");
 															}
 
@@ -478,20 +427,19 @@ public class Menu {
 
 														case '3':
 
-															System.out.println("Digite o id da promocao de produto a ser removida");
+															System.out.println(
+																	"Digite o id da promocao de produto a ser removida");
 															String onemoretime2 = in.nextLine();
 
 															PromocaoProduto pp = new PromocaoProduto();
 															pp = venda.BuscarPromoProduto(onemoretime2);
 
-															if( pp.getIdPromocao() != null)
-															{
+															if (pp.getIdPromocao() != null) {
 																somethingcomprado--;
 																venda.removerPromoProduto(onemoretime2);
-																System.out.println("Promocao de produto removida com sucesso");
-															}
-															else
-															{
+																System.out.println(
+																		"Promocao de produto removida com sucesso");
+															} else {
 																System.out.println("pedido nao realizado");
 															}
 
@@ -499,25 +447,23 @@ public class Menu {
 
 														case '4':
 
-															System.out.println("Digite o id da promocao de combo a ser removida");
+															System.out.println(
+																	"Digite o id da promocao de combo a ser removida");
 															String onemoretime3 = in.nextLine();
 
 															PromocaoCombo pc = new PromocaoCombo();
 															pc = venda.BuscarPromoCombo(onemoretime3);
 
-															if( pc.getIdPromocao() != null)
-															{
+															if (pc.getIdPromocao() != null) {
 																somethingcomprado--;
 																venda.removerPromoCombo(onemoretime3);
-																System.out.println("Promocao de combo removida com sucesso");
-															}
-															else
-															{
+																System.out.println(
+																		"Promocao de combo removida com sucesso");
+															} else {
 																System.out.println("pedido nao realizado");
 															}
 
 															break;
-
 
 														case '5':
 
@@ -529,9 +475,6 @@ public class Menu {
 
 															break;
 
-
-
-
 														}
 													}
 												}
@@ -539,13 +482,10 @@ public class Menu {
 												break;
 
 											case '7':
-												if(somethingcomprado > 0)
-												{
+												if (somethingcomprado > 0) {
 													System.out.println(venda.toString());
 													in.nextLine();
-												}
-												else
-												{
+												} else {
 													System.out.println("Nenhum pedido realizado");
 												}
 
@@ -559,17 +499,13 @@ public class Menu {
 												break;
 
 											default:
-												System.out.println("Opcao invalida");							
+												System.out.println("Opcao invalida");
 
-
-											}						
+											}
 
 										} // END DO WHILE
 
-
-									}
-									else
-									{
+									} else {
 										System.out.println("Nenhum produto cadastrado no estoque");
 									}
 
@@ -587,22 +523,16 @@ public class Menu {
 										System.out.println("Digite sua senha nova");
 										newsenha = in.nextLine();
 
-										try
-										{
+										try {
 
 											Fachada.getInstancia().alterarSenhaCliente(tempId, oldsenha, newsenha);
 											result = true;
 
-										}
-										catch(ONFException exc)
-										{
+										} catch (ONFException exc) {
+											System.out.println(exc.getMessage());
+										} catch (WPException exc) {
 											System.out.println(exc.getMessage());
 										}
-										catch(WPException exc)
-										{
-											System.out.println(exc.getMessage());
-										}
-
 
 									} while (result != true);
 
@@ -676,16 +606,15 @@ public class Menu {
 							System.out.print("Digite sua senha: ");
 							tempSenhaAdmin = in.nextLine();
 
-							try{
+							try {
 								end = Fachada.getInstancia().loginFuncionario(tempIdAdmin, tempSenhaAdmin);
 
-							}catch(WPException exc){	
+							} catch (WPException exc) {
 								System.out.println(exc.getMessage());
 
 							} catch (ONFException e) {
 								System.out.println(e.getMessage());
 							}
-
 
 						} while (end != true);
 
@@ -711,7 +640,7 @@ public class Menu {
 								while (b30 != 5) {
 
 									System.out
-									.println("=================Gerenciamento de funcionarios================");
+											.println("=================Gerenciamento de funcionarios================");
 									System.out.println("1 - Adicionar ");
 									System.out.println("2 - Remover");
 									System.out.println("3 - Alterar dados");
@@ -771,19 +700,19 @@ public class Menu {
 										Endereco end1 = new Endereco(rua, bairro, cidade, estado, numero, telefone);
 										Funcionario funcionario1 = new Funcionario(nome, id, nascimento, end1, senha);
 
-										try{
+										try {
 
 											Fachada.getInstancia().cadastrarFuncionario(funcionario1);
 											contFunc++;
 
-										}catch(OJEException exc){
+										} catch (OJEException exc) {
 
 											System.out.println(exc.getMessage());
 											System.out.println("id:" + exc.getId());
 										}
 
 										break; // TERMINO DO CASE 1 DO
-										// GERENCIAMENTO D FUNCIONARIOS
+									// GERENCIAMENTO D FUNCIONARIOS
 
 									case '2':
 
@@ -791,22 +720,22 @@ public class Menu {
 											System.out.println("Digite o ID do Funcionario: ");
 											String auxIdFunc = in.nextLine();
 
-											try{
+											try {
 												Fachada.getInstancia().removerFuncionario(auxIdFunc);
 												contFunc--;
 												System.out.println("Funcionario removido com sucesso");
-											}
-											catch(ONFException exc){
+											} catch (ONFException exc) {
 												System.out.println(exc.getMessage());
 												System.out.println("Funcionario nao removido");
 
 											}
 										} else {
-											System.out.println("Impossivel realizar acao, o sistema nao possui funcionarios cadastrados");
+											System.out.println(
+													"Impossivel realizar acao, o sistema nao possui funcionarios cadastrados");
 										}
 
 										break; // TERMINO DO CASE 2 DE
-										// GERENCIAMENTO D FUNCIONARIOS
+									// GERENCIAMENTO D FUNCIONARIOS
 
 									case '3':
 
@@ -819,11 +748,12 @@ public class Menu {
 											String idd = in.nextLine();
 
 											Funcionario f = new Funcionario();
-											try{
+											try {
 												f = Fachada.getInstancia().procurarFuncionario(idd);
 
 												while (blabla != 3) {
-													System.out.print("------------Atualizacao Funcionario---------- \n");
+													System.out
+															.print("------------Atualizacao Funcionario---------- \n");
 
 													System.out.println("1 - Alterar endereco:");
 													System.out.println("2 - Alterar senha:");
@@ -834,7 +764,7 @@ public class Menu {
 
 													switch (opcao) {
 
-													case '1': 
+													case '1':
 
 														System.out.println("Digite a rua:");
 														String ruaa = in.nextLine();
@@ -858,17 +788,12 @@ public class Menu {
 														Endereco endtwo = new Endereco(ruaa, bairroo, cidadee, estadoo,
 																numeroo, telefonee);
 
-														try
-														{
+														try {
 															Fachada.getInstancia().atualizarFuncionario(idd, endtwo);
 															System.out.println("Alteracao realizada com sucesso!");
-														}
-														catch(ONFException exc)
-														{
+														} catch (ONFException exc) {
 															System.out.println(exc.getMessage());
 														}
-
-
 
 														in.nextLine();
 
@@ -886,18 +811,14 @@ public class Menu {
 															System.out.println("Digite sua senha nova");
 															newsenha = in.nextLine();
 
-															try
-															{
-																Fachada.getInstancia().alterarSenhaFuncionario(idd, oldsenha, newsenha);
+															try {
+																Fachada.getInstancia().alterarSenhaFuncionario(idd,
+																		oldsenha, newsenha);
 																result = true;
-															}
-															catch(WPException exc)
-															{
+															} catch (WPException exc) {
 																System.out.println(exc.getMessage());
 
-															}
-															catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
 
 															}
@@ -905,7 +826,6 @@ public class Menu {
 														} while (result != true);
 
 														System.out.println("Senha modificado com sucesso");
-
 
 														in.nextLine();
 
@@ -922,12 +842,9 @@ public class Menu {
 
 													}
 												}
-											}
-											catch(ONFException exc)
-											{
+											} catch (ONFException exc) {
 												System.out.println(exc.getMessage());
 											}
-
 
 										} else {
 											System.out.println(
@@ -935,7 +852,7 @@ public class Menu {
 										}
 
 										break; // TERMINO DO CASE 3 DE
-										// GERENCIAMENTO D FUNCIONARIOS
+									// GERENCIAMENTO D FUNCIONARIOS
 
 									case '4':
 
@@ -948,7 +865,7 @@ public class Menu {
 										}
 
 										break; // TERMINO DO CASE 4 D
-										// GERENCIAMENTO D FUNCIONARIOS
+									// GERENCIAMENTO D FUNCIONARIOS
 
 									case '5':
 
@@ -987,8 +904,7 @@ public class Menu {
 
 										int h20 = 0;
 
-										while(h20 != 5)
-										{
+										while (h20 != 5) {
 											System.out.println("==================Adicionar==================");
 											System.out.println("1 - Produto");
 											System.out.println("2 - Combo");
@@ -1000,11 +916,9 @@ public class Menu {
 											opcao = in.next().charAt(0);
 											in.nextLine();
 
+											switch (opcao) {
 
-											switch(opcao)
-											{
-
-											case '1': 
+											case '1':
 
 												System.out.print("Nome do Produto: ");
 												String nomeProd = in.nextLine();
@@ -1015,27 +929,22 @@ public class Menu {
 												System.out.print("Valor do Produto: ");
 												Double valorProd = in.nextDouble();
 												in.nextLine();
-												try
-												{
+												try {
 
 													Produto produto1 = new Produto(nomeProd, valorProd, codigoProd);
 													Fachada.getInstancia().cadastrarProduto(produto1);
 													contProduto++;
-												}
-												catch(OJEException exc)
-												{
+												} catch (OJEException exc) {
 													System.out.println(exc.getMessage());
 													System.out.println("Id do objeto: " + exc.getId());
 												}
 												break;
 
-
 											case '2':
 
 												int conterro = 0;
 
-												if( contProduto > 2)
-												{
+												if (contProduto > 2) {
 
 													System.out.println("Nome do Combo: ");
 													String nomeCombo = in.nextLine();
@@ -1043,113 +952,96 @@ public class Menu {
 													System.out.println("Codigo do Combo: ");
 													String codigoCombo = in.nextLine();
 
-													Combo combo1 = new Combo(nomeCombo , codigoCombo);
-													try
-													{
-
+													Combo combo1 = new Combo(nomeCombo, codigoCombo);
+													try {
 
 														Fachada.getInstancia().cadastrarCombo(combo1);
 														contCombo++;
 														conterro++;
-													}
-													catch(OJEException exc)
-													{
+													} catch (OJEException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println("Id do objeto: " + exc.getId());
 													}
 
-													if(conterro > 0)
-													{
-														System.out.println("Deseja listar os produtos ja cadastrados para auxiliar na criacao do combo ? (S/N)");
+													if (conterro > 0) {
+														System.out.println(
+																"Deseja listar os produtos ja cadastrados para auxiliar na criacao do combo ? (S/N)");
 														char resposta = in.next().charAt(0);
 														in.nextLine();
 
-														if( resposta == 'S' || resposta == 's')
-														{
+														if (resposta == 'S' || resposta == 's') {
 															System.out.println(Fachada.getInstancia().listarProdutos());
 														}
 
-
 														boolean result = true;
 														Produto produto2 = new Produto();
-														do
-														{
+														do {
 
-															try
-															{
-																System.out.println("Digite o codigo do produto a ser adicionado no combo");
+															try {
+																System.out.println(
+																		"Digite o codigo do produto a ser adicionado no combo");
 																String volatcode = in.nextLine();
 
-																produto2 = Fachada.getInstancia().procurarProduto(volatcode);
-															}
-															catch(ONFException exc)
-															{
+																produto2 = Fachada.getInstancia()
+																		.procurarProduto(volatcode);
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
 																System.out.println(exc.getidObjeto());
 
 															}
 
-															try
-															{
+															try {
 																combo1.addItens(produto2);
 
-																System.out.println("Produto adicionado ao combo com sucesso\n");
+																System.out.println(
+																		"Produto adicionado ao combo com sucesso\n");
 
-															}
-															catch(OJEException exc)
-															{
+															} catch (OJEException exc) {
 																System.out.println(exc.getMessage());
 																System.out.println("Id do objeto" + exc.getId());
 
 															}
 
-
-															System.out.println("Deseja adicionar mais um produto ao combo ? ( S/N )");
+															System.out.println(
+																	"Deseja adicionar mais um produto ao combo ? ( S/N )");
 
 															char resposta1000 = in.next().charAt(0);
 
 															in.nextLine();
 
-															if( resposta1000 == 'n' || resposta1000 == 'N')
-															{
+															if (resposta1000 == 'n' || resposta1000 == 'N') {
 																result = false;
 															}
 
 															System.out.println();
 
-														}while( result == true);
-
-
+														} while (result == true);
 
 													}
-												}
-												else
-												{
-													System.out.println("Impossivel criar um combo, devido a falta de produtos em estoque");
+												} else {
+													System.out.println(
+															"Impossivel criar um combo, devido a falta de produtos em estoque");
 												}
 
-												break;// TERMINO DO CASE 2 DO ADICIONAR
+												break;// TERMINO DO CASE 2 DO
+														// ADICIONAR
 
 											case '3':
 
-												if( contCombo >= 1)
-												{
+												if (contCombo >= 1) {
 													Combo combo1 = new Combo();
 													System.out.println("Digite o id do combo a entrar em promocao:");
 													String idcombo1 = in.nextLine();
 
-													try
-													{
+													try {
 
 														combo1 = Fachada.getInstancia().procurarCombo(idcombo1);
 
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
-														System.out.println("Id do objeto nao encontrado: " + exc.getidObjeto());
+														System.out.println(
+																"Id do objeto nao encontrado: " + exc.getidObjeto());
 													}
-
 
 													System.out.println("Digite o id da promocao do combo:");
 													String idpromocombo = in.nextLine();
@@ -1160,61 +1052,52 @@ public class Menu {
 
 													LocalDate creation = LocalDate.now();
 
-													PromocaoCombo promocombo = new PromocaoCombo(idpromocombo, creation, combo1, valorpromocombo);
+													PromocaoCombo promocombo = new PromocaoCombo(idpromocombo, creation,
+															combo1, valorpromocombo);
 
-
-
-													try
-													{
+													try {
 
 														Fachada.getInstancia().cadastrarPromoCombo(promocombo);
 														contPromoCombo++;
 														System.out.println("Promocao de combo cadastrada com sucesso");
-													}
-													catch(OJEException exc)
-													{
+													} catch (OJEException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println("Id do objeto : " + exc.getId());
 													}
 
 												}
 
-
-												else
-												{
-													System.out.println("Impossivel realizar a acao por falta de combos no estoque");
+												else {
+													System.out.println(
+															"Impossivel realizar a acao por falta de combos no estoque");
 												}
 
-
-												break;// TERMINO DO CASE DE ADICIONAR PROMOC�O DE COMBOS
+												break;// TERMINO DO CASE DE
+														// ADICIONAR PROMOC�O DE
+														// COMBOS
 
 											case '4':
 
 												int contErro1 = 0;
 
-												if( contProduto >= 1)
-												{
+												if (contProduto >= 1) {
 
 													System.out.println("Digite o id do produto a entrar em promocao:");
 													String idproduto1 = in.nextLine();
 
 													Produto produto2 = new Produto();
 
-													try
-													{
+													try {
 
 														produto2 = Fachada.getInstancia().procurarProduto(idproduto1);
 														contErro1++;
 
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println(exc.getidObjeto());
 													}
 
-													if(contErro1 > 0)
-													{
+													if (contErro1 > 0) {
 
 														System.out.println("Digite o id da promocao do produto:");
 														String idpromoprodutos = in.nextLine();
@@ -1225,37 +1108,36 @@ public class Menu {
 
 														LocalDate creation = LocalDate.now();
 
-														PromocaoProduto promoproduto = new PromocaoProduto(idpromoprodutos, creation, produto2, valorpromoproduto);
+														PromocaoProduto promoproduto = new PromocaoProduto(
+																idpromoprodutos, creation, produto2, valorpromoproduto);
 
-														try
-														{
+														try {
 															Fachada.getInstancia().cadastrarPromoProduto(promoproduto);
 
 															contPromoProduto++;
 
-															System.out.println("Promocao de produto cadastrada com sucesso");
-														}
-														catch(OJEException exc)
-														{
+															System.out.println(
+																	"Promocao de produto cadastrada com sucesso");
+														} catch (OJEException exc) {
 															System.out.println(exc.getMessage());
 															System.out.println("Id do objeto: " + exc.getId());
 														}
 													}
 
-												}
-												else
-												{
-													System.out.println("Impossivel realizar a acao por falta de produtos no estoque");
+												} else {
+													System.out.println(
+															"Impossivel realizar a acao por falta de produtos no estoque");
 												}
 
-												break; // TERMINO DO CASE DE CRIAR PROMOCAO DE PRODUTO
+												break; // TERMINO DO CASE DE
+														// CRIAR PROMOCAO DE
+														// PRODUTO
 
 											case '5':
 
 												h20 = 5;
 
 												break;
-
 
 											default:
 												System.out.println("Opcao invalida");
@@ -1264,16 +1146,14 @@ public class Menu {
 											}
 										}
 
-
 										break; // TERMINO DO CASE 1 D
-										// GERENCIAMENTO D PRODUTOS
+									// GERENCIAMENTO D PRODUTOS
 
 									case '2':
 
 										int y20 = 0;
 
-										while (y20 != 5) 
-										{
+										while (y20 != 5) {
 
 											System.out.println("==================Remover==================");
 											System.out.println("1 - Produto");
@@ -1286,43 +1166,35 @@ public class Menu {
 											opcao = in.next().charAt(0);
 											in.nextLine();
 
-
-											switch(opcao)
-											{
+											switch (opcao) {
 											case '1':
 
 												if (contProduto > 0) {
 
 													System.out.println("Digite o Codigo do Produto a ser removido: ");
 													String auxCodigoProd = in.nextLine();
-													try
-													{
+													try {
 
 														Fachada.getInstancia().removerProduto(auxCodigoProd);
 														contProduto--;
 														System.out.println("Produto removido com sucesso");
 
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println(exc.getidObjeto());
 													}
-
 
 												} else {
 													System.out.println(
 															"Impossivel realizar acao, o sistema nao possui produtos cadastrados");
 												}
 
-												break; 
+												break;
 
 											case '2':
 
-												if( contCombo > 0 )
-												{
-													try
-													{
+												if (contCombo > 0) {
+													try {
 														System.out.println("Digite o codigo do combo a ser removido:");
 														String auxCodigoCombo = in.nextLine();
 
@@ -1330,75 +1202,61 @@ public class Menu {
 														contCombo--;
 														System.out.println("Combo removido com sucesso");
 
-													}catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println(exc.getidObjeto());
 													}
-												}
-												else
-												{
-													System.out.println("Impossivel realizar acao, o sistema nao possui combos cadastrados");
+												} else {
+													System.out.println(
+															"Impossivel realizar acao, o sistema nao possui combos cadastrados");
 												}
 												break;
 
-
 											case '3':
 
-												if( contPromoCombo > 0 )
-												{
-													System.out.println("Digite o codigo da promocao de combo a se removida:");
+												if (contPromoCombo > 0) {
+													System.out.println(
+															"Digite o codigo da promocao de combo a se removida:");
 													String auxCodigopromocombo = in.nextLine();
 
-													try
-													{
+													try {
 														Fachada.getInstancia().removerPromoCombo(auxCodigopromocombo);
 
 														contPromoCombo--;
 														System.out.println("Promocao de combo removida com sucesso");
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println("Id do objeto: " + exc.getidObjeto());
 													}
 
-												}
-												else
-												{
-													System.out.println("Impossivel realizar acao, o sistema nao possui promocoes de combo cadastradas");
+												} else {
+													System.out.println(
+															"Impossivel realizar acao, o sistema nao possui promocoes de combo cadastradas");
 												}
 												break;
 
-
 											case '4':
 
-												if( contPromoProduto > 0 )
-												{
-													System.out.println("Digite o codigo da promocao de produto a ser removida:");
+												if (contPromoProduto > 0) {
+													System.out.println(
+															"Digite o codigo da promocao de produto a ser removida:");
 													String auxCodigopromoproduto = in.nextLine();
 
-													try
-													{
+													try {
 														Fachada.getInstancia().removerProduto(auxCodigopromoproduto);
 
 														contPromoProduto--;
 														System.out.println("Promocao de produto removida com sucesso");
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println("Id do objeto: " + exc.getidObjeto());
 													}
 
-												}
-												else
-												{
-													System.out.println("Impossivel realizar acao, o sistema nao possui promocoes de produto cadastradas");
+												} else {
+													System.out.println(
+															"Impossivel realizar acao, o sistema nao possui promocoes de produto cadastradas");
 												}
 												break;
-
-
 
 											case '5':
 												y20 = 5;
@@ -1408,21 +1266,15 @@ public class Menu {
 												System.out.println("opcao invalida");
 												break;
 
-
 											}// END DO SWITCH DE REMOVER
 
-
-										}// END DO WHILE DE REMOVER
-
-
-
+										} // END DO WHILE DE REMOVER
 
 									case '3':
 										int x20 = 0;
 
 										while (x20 != 5) {
-											System.out.println(
-													"=====================Alterar dados==================");
+											System.out.println("=====================Alterar dados==================");
 											System.out.println("1 - Produtos");
 											System.out.println("2 - Combos");
 											System.out.println("3 - Promocoes de combo");
@@ -1436,13 +1288,11 @@ public class Menu {
 											switch (opcao) {
 
 											case '1':
-												if(contProduto > 0)
-												{
+												if (contProduto > 0) {
 													System.out.println("Digite o id do produto a ser alterado");
 													String idprodutoalterado = in.nextLine();
 
-													try
-													{
+													try {
 														Produto p = new Produto();
 														p = Fachada.getInstancia().procurarProduto(idprodutoalterado);
 
@@ -1450,37 +1300,28 @@ public class Menu {
 														double newvalor = in.nextDouble();
 														in.nextLine();
 
-														Fachada.getInstancia().atualizarProduto(newvalor, idprodutoalterado);
+														Fachada.getInstancia().atualizarProduto(newvalor,
+																idprodutoalterado);
 
 														System.out.println("Preco alterado com suceso");
 
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println(exc.getidObjeto());
 													}
 
-
-
-												}
-												else
-												{
+												} else {
 													System.out.println("Nenhum produto cadastrado no sistema");
 												}
 
 												break; // TERMINO DO CASE 1
 
-
-
-
 											case '2':
-												if( contCombo > 0 )
-												{
+												if (contCombo > 0) {
 													int k20 = 0;
-													while(k20 != 3)
-													{
-														System.out.println("==================ALTERAR DADOS COMBO=============");
+													while (k20 != 3) {
+														System.out.println(
+																"==================ALTERAR DADOS COMBO=============");
 														System.out.println("1 - Adicionar produto");
 														System.out.println("2 - Remover produto");
 														System.out.println("3 - Sair");
@@ -1489,118 +1330,92 @@ public class Menu {
 														opcao = in.next().charAt(0);
 														in.nextLine();
 
-
-														switch(opcao)
-														{
+														switch (opcao) {
 														case '1':
 
-
-
-															System.out.println("Digite o codigo do combo:");                                                          
+															System.out.println("Digite o codigo do combo:");
 															String codigocombo = in.nextLine();
-															try
-															{
+															try {
 
 																Combo c = new Combo();
 																c = Fachada.getInstancia().procurarCombo(codigocombo);
-															}
-															catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
-																System.out.println("Id do objeto nao encontrado: " + exc.getidObjeto());
+																System.out.println("Id do objeto nao encontrado: "
+																		+ exc.getidObjeto());
 															}
 
 															Produto p = new Produto();
-															try
-															{
-																System.out.println("Digite o codigo do produto a ser adicionado no combo");
+															try {
+																System.out.println(
+																		"Digite o codigo do produto a ser adicionado no combo");
 																String codigoproduto = in.nextLine();
 
+																p = Fachada.getInstancia()
+																		.procurarProduto(codigoproduto);
 
-																p = Fachada.getInstancia().procurarProduto(codigoproduto);
-
-
-															}catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
 																System.out.println(exc.getidObjeto());
 															}
-															try
-															{
-																Fachada.getInstancia().AdicionarProdutoAoCombo(p, codigocombo);
+															try {
+																Fachada.getInstancia().AdicionarProdutoAoCombo(p,
+																		codigocombo);
 
 																System.out.println("Produto adicionado com sucesso");
 
-															}
-															catch(OJEException exc)
-															{
+															} catch (OJEException exc) {
 																System.out.println(exc.getMessage());
 																System.out.println("Id do objeto: " + exc.getId());
 
-															}catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
 																System.out.println(exc.getidObjeto());
 															}
 
-
 															break;
 
-
 														case '2':
-
 
 															System.out.println("Digite o codigo do combo:");
 															String codigocombo1 = in.nextLine();
 
 															Combo c1 = new Combo();
-															try
-															{
+															try {
 																c1 = Fachada.getInstancia().procurarCombo(codigocombo1);
-															}
-															catch(ONFException exc )
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
-																System.out.println("Id do objeto nao encontrado: " + exc.getidObjeto());
+																System.out.println("Id do objeto nao encontrado: "
+																		+ exc.getidObjeto());
 															}
 
 															Produto p10 = new Produto();
 
-															try
-															{
-																System.out.println("Digite o codigo do produto a ser removido no combo");
+															try {
+																System.out.println(
+																		"Digite o codigo do produto a ser removido no combo");
 																String codigoproduto1 = in.nextLine();
 
+																p = Fachada.getInstancia()
+																		.procurarProduto(codigoproduto1);
 
-																p = Fachada.getInstancia().procurarProduto(codigoproduto1);						
-
-
-															}
-															catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
 																System.out.println(exc.getidObjeto());
 															}
 
-															try
-															{
-																Fachada.getInstancia().RemoverProduto(p10, codigocombo1);
+															try {
+																Fachada.getInstancia().RemoverProduto(p10,
+																		codigocombo1);
 
 																System.out.println("Produto removido com sucesso");
-															}
-															catch(PNEException exc)
-															{
-																System.out.println(exc.getMessage());                                                          
+															} catch (PNEException exc) {
+																System.out.println(exc.getMessage());
 																System.out.println(exc.getidObjeto());
-															}
-															catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
 																System.out.println(exc.getidObjeto());
 															}
-
-
-
 
 															break;
 
@@ -1612,77 +1427,64 @@ public class Menu {
 															System.out.println("opcao invalida");
 															break;
 
-
 														}
 													}
 
 												}
 
-
-												else
-												{
+												else {
 													System.out.println("Nenhum combo cadastrado no sistema");
 												}
 
 												break;
 
 											case '3':
-												if(contPromoCombo > 0)
-												{
-													System.out.println("Digite o id da promocao de combo a ser alterada");
+												if (contPromoCombo > 0) {
+													System.out
+															.println("Digite o id da promocao de combo a ser alterada");
 													String idpromocombo = in.nextLine();
 
 													PromocaoCombo pc = new PromocaoCombo();
-													try
-													{
+													try {
 														pc = Fachada.getInstancia().buscarPromocaoCombo(idpromocombo);
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println("Id do objeto: " + exc.getidObjeto());
 													}
-
 
 													System.out.println("Digite o novo valor da promocao de combo");
 													double newvalor = in.nextDouble();
 													in.nextLine();
 
-													try
-													{
+													try {
 
-														Fachada.getInstancia().alterarPrecoPromoCombo(newvalor, idpromocombo);
+														Fachada.getInstancia().alterarPrecoPromoCombo(newvalor,
+																idpromocombo);
 														System.out.println("Preco alterado com suceso");
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println("Id do objeto: " + exc.getidObjeto());
 
 													}
 
-
-												}
-												else
-												{
-													System.out.println("Nenhuma promocao de combo encontrada no sistema");
+												} else {
+													System.out
+															.println("Nenhuma promocao de combo encontrada no sistema");
 												}
 
 												break;
 
 											case '4':
-												if(contPromoProduto > 0)
-												{
-													System.out.println("Digite o id da promocao de produto a ser alterada");
+												if (contPromoProduto > 0) {
+													System.out.println(
+															"Digite o id da promocao de produto a ser alterada");
 													String idpromoproduto = in.nextLine();
 
 													PromocaoProduto pp = new PromocaoProduto();
-													try
-													{
-														pp = Fachada.getInstancia().buscarPromocaoProduto(idpromoproduto);
-													}
-													catch(ONFException exc)
-													{
+													try {
+														pp = Fachada.getInstancia()
+																.buscarPromocaoProduto(idpromoproduto);
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println("Id do objeto: " + exc.getidObjeto());
 													}
@@ -1691,22 +1493,19 @@ public class Menu {
 													double newvalor = in.nextDouble();
 													in.nextLine();
 
-													try
-													{
-														Fachada.getInstancia().alterarPrecoPromoProduto(newvalor, idpromoproduto);
+													try {
+														Fachada.getInstancia().alterarPrecoPromoProduto(newvalor,
+																idpromoproduto);
 
 														System.out.println("Preco alterado com suceso");
-													}
-													catch(ONFException exc)
-													{
+													} catch (ONFException exc) {
 														System.out.println(exc.getMessage());
 														System.out.println("Id do objeto : " + exc.getidObjeto());
 													}
 
-												}
-												else
-												{
-													System.out.println("Nenhuma promocao de produto encontrada no sistema");
+												} else {
+													System.out.println(
+															"Nenhuma promocao de produto encontrada no sistema");
 												}
 												break;
 
@@ -1718,13 +1517,9 @@ public class Menu {
 												System.out.println("opcao invalida");
 												break;
 
-
 											}// END DO SWITCH PRINCIPAL
 
-
-
-										}// END DO WHILE
-
+										} // END DO WHILE
 
 										break;
 
@@ -1733,8 +1528,8 @@ public class Menu {
 										int z20 = 0;
 
 										while (z20 != 5) {
-											System.out.println(
-													"=====================Listar Produtos==================");
+											System.out
+													.println("=====================Listar Produtos==================");
 											System.out.println("1 - Listar Produtos");
 											System.out.println("2 - Listar Combos");
 											System.out.println("3 - Listar Promocoes de combo");
@@ -1747,15 +1542,11 @@ public class Menu {
 
 											switch (opcao) {
 
-
 											case '1':
 
-												if(contProduto >= 1)
-												{
+												if (contProduto >= 1) {
 													System.out.println(Fachada.getInstancia().listarProdutos());
-												}
-												else
-												{
+												} else {
 													System.out.println("Nenhum produto cadastrado no estoque");
 												}
 
@@ -1763,12 +1554,9 @@ public class Menu {
 
 											case '2':
 
-												if(contCombo >= 1)
-												{
+												if (contCombo >= 1) {
 													System.out.println(Fachada.getInstancia().listarCombos());
-												}
-												else
-												{
+												} else {
 													System.out.println("Nenhum combo cadastrado no estoque");
 												}
 
@@ -1776,26 +1564,22 @@ public class Menu {
 
 											case '3':
 
-												if(contPromoCombo >= 1)
-												{
+												if (contPromoCombo >= 1) {
 													System.out.println(Fachada.getInstancia().listarCombosPromotion());
-												}
-												else
-												{
-													System.out.println("Nenhuma promocao de combo cadastrado no estoque");
+												} else {
+													System.out
+															.println("Nenhuma promocao de combo cadastrado no estoque");
 												}
 
 												break;
 
 											case '4':
 
-												if(contPromoProduto >= 1)
-												{
+												if (contPromoProduto >= 1) {
 													System.out.println(Fachada.getInstancia().listarProdutoPromotion());
-												}
-												else
-												{
-													System.out.println("Nenhuma promocao de produtos cadastrado no estoque");
+												} else {
+													System.out.println(
+															"Nenhuma promocao de produtos cadastrado no estoque");
 												}
 
 												break;
@@ -1806,22 +1590,18 @@ public class Menu {
 
 												break;
 
-
 											default:
 
 												System.out.println("Opcao invalida");
 
 												break;
 
-
-
 											}
 
 										}
 
-
 										break; // TERMINO DO CASE 4 D
-										// GERENCIAMENTO D PRODUTOS
+									// GERENCIAMENTO D PRODUTOS
 
 									case '5':
 										b20 = 5;
@@ -1921,16 +1701,13 @@ public class Menu {
 											System.out.println("Digite o ID do Cliente: ");
 											String auxIdCliente = in.nextLine();
 
-											try
-											{
+											try {
 
 												Fachada.getInstancia().removerCliente(auxIdCliente);
 												contCliente--;
 												System.out.println("Cliente removido com sucesso");
 
-											}
-											catch(ONFException exc)
-											{
+											} catch (ONFException exc) {
 												System.out.println(exc.getMessage());
 											}
 
@@ -1940,10 +1717,9 @@ public class Menu {
 										}
 
 										break; // TERMINO DO CASE 2 D
-										// GERENCIAMENTO D CLIENTES
+									// GERENCIAMENTO D CLIENTES
 
 									case '3':
-
 
 										String oldsenha, newsenha;
 										int contla = 0;
@@ -1956,8 +1732,7 @@ public class Menu {
 
 											Cliente c = new Cliente();
 
-											try
-											{
+											try {
 
 												c = Fachada.getInstancia().procurarCliente(idd);
 
@@ -1997,14 +1772,13 @@ public class Menu {
 														Endereco endtwo = new Endereco(ruaa, bairroo, cidadee, estadoo,
 																numeroo, telefonee);
 
-														try
-														{
+														try {
 
-															Fachada.getInstancia().atualizarClienteendereco(idd,endtwo);
+															Fachada.getInstancia().atualizarClienteendereco(idd,
+																	endtwo);
 															System.out.println("Alteracao realizada com sucesso!");
 
-														}catch(ONFException exc)
-														{
+														} catch (ONFException exc) {
 															System.out.println(exc.getMessage());
 														}
 
@@ -2021,20 +1795,16 @@ public class Menu {
 														System.out.println("Digite a senha nova");
 														newsenha = in.nextLine();
 
-														try
-														{
-															Fachada.getInstancia().alterarSenhaCliente(idd, oldsenha, newsenha);
+														try {
+															Fachada.getInstancia().alterarSenhaCliente(idd, oldsenha,
+																	newsenha);
 															System.out.println("Senha modificado com sucesso");
-														}
-														catch(ONFException exc)
-														{
+														} catch (ONFException exc) {
 															System.out.println(exc.getMessage());
 														} catch (WPException e) {
 
 															System.out.println(e.getMessage());
 														}
-
-
 
 														break;
 
@@ -2050,15 +1820,10 @@ public class Menu {
 													}
 												}
 
-
-
-											}																								
-											catch(ONFException exc)
-											{
+											} catch (ONFException exc) {
 												System.out.println(exc.getMessage());
 											}
-										}
-										else {
+										} else {
 											System.out.println(
 													"Impossivel realizar acao, o sistema nao possui clientes cadastrados");
 										}
@@ -2076,7 +1841,7 @@ public class Menu {
 										}
 
 										break; // TERMINO DO CASE 4 D
-										// GERENCIAMENTO D CLIENTES
+									// GERENCIAMENTO D CLIENTES
 
 									case '5':
 										b10 = 5;
@@ -2091,17 +1856,13 @@ public class Menu {
 
 								break;// BREAK DO TERMINO DO CASE D CLIENTES
 
-
 							case '4':
 
-
-								if( contCombo > 0 || contProduto > 0 || contPromoCombo > 0 || contPromoProduto > 0)
-								{
+								if (contCombo > 0 || contProduto > 0 || contPromoCombo > 0 || contPromoProduto > 0) {
 									int v20 = 0;
 
 									while (v20 != 3) {
-										System.out.println(
-												"=====================Gerenciar Vendas==================");
+										System.out.println("=====================Gerenciar Vendas==================");
 										System.out.println("1 - Fazer pedido");
 										System.out.println("2 - Mostrar historico de vendas");
 										System.out.println("3 - Sair");
@@ -2127,14 +1888,11 @@ public class Menu {
 												System.out.println(e.getMessage());
 											}
 
-											if(c1.getId() != null)
-											{
+											if (c1.getId() != null) {
 												contVenda++;
 												Venda venda = new Venda(contVenda, tempId);
 
-												while( aux40 != 6)
-												{
-
+												while (aux40 != 6) {
 
 													System.out.println("===========Compra==============");
 													System.out.println("1 - Produto");
@@ -2150,22 +1908,17 @@ public class Menu {
 													opcao = in.next().charAt(0);
 													in.nextLine();
 
-
-													switch(opcao)
-													{
-
+													switch (opcao) {
 
 													case '1':
 
-
 														if (contProduto > 0) {
-															System.out.println(
-																	"----------Produtos----------\n" + Fachada.getInstancia().listarProdutos());
+															System.out.println("----------Produtos----------\n"
+																	+ Fachada.getInstancia().listarProdutos());
 
-
-															try
-															{
-																System.out.println("\nDigite o codigo do Produto que voce deseja");
+															try {
+																System.out.println(
+																		"\nDigite o codigo do Produto que voce deseja");
 																String codigo = in.nextLine();
 
 																Produto p = new Produto();
@@ -2174,36 +1927,34 @@ public class Menu {
 
 																venda.comprarProduto(p);
 																somethingcomprado++;
-																System.out.println("Pedido adicionado ao carrinho com sucesso");
+																System.out.println(
+																		"Pedido adicionado ao carrinho com sucesso");
 
-															}	
-															catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
 																System.out.println(exc.getidObjeto());
 															}
-
-
-
 
 														} else {
 															System.out.println("Nenhum produto cadastrado no estoque");
 														}
 
-														break; // BREAK DA FUNCAO DE COMPRA PRODUTO
-
+														break; // BREAK DA
+																// FUNCAO DE
+																// COMPRA
+																// PRODUTO
 
 													case '2':
 
-														if( contCombo > 0)
-														{
+														if (contCombo > 0) {
 
-															System.out.println(" ==================Combos =================\n" + Fachada.getInstancia().listarCombos());
+															System.out.println(
+																	" ==================Combos =================\n"
+																			+ Fachada.getInstancia().listarCombos());
 
-
-															try
-															{
-																System.out.println("\nDigite o codigo do combo que voce deseja");
+															try {
+																System.out.println(
+																		"\nDigite o codigo do combo que voce deseja");
 																String codigo = in.nextLine();
 
 																Combo c = new Combo();
@@ -2212,166 +1963,158 @@ public class Menu {
 
 																venda.comprarCombo(c);
 																somethingcomprado++;
-																System.out.println("Pedido adicionado ao carrinho com sucesso");
-															}
-															catch(ONFException exc)
-															{
+																System.out.println(
+																		"Pedido adicionado ao carrinho com sucesso");
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
-																System.out.println("Id do objeto nao encontrado: " + exc.getidObjeto());
+																System.out.println("Id do objeto nao encontrado: "
+																		+ exc.getidObjeto());
 															}
 
-
-
-														}
-														else
-														{
+														} else {
 															System.out.println("Nenhum combo cadastrado no estoque");
 														}
 
-														break; // BREAK DA FUNCAO DE COMPRA DE COMBO
+														break; // BREAK DA
+																// FUNCAO DE
+																// COMPRA DE
+																// COMBO
 
 													case '3':
 
-														if( contPromoProduto > 0)
-														{
-															System.out.println("===============Promocoes de produto===========\n"
-																	+ Fachada.getInstancia().listarProdutoPromotion());
+														if (contPromoProduto > 0) {
+															System.out.println(
+																	"===============Promocoes de produto===========\n"
+																			+ Fachada.getInstancia()
+																					.listarProdutoPromotion());
 
-
-
-															System.out.println("\nDigite o codigo da promocao desejada");
+															System.out
+																	.println("\nDigite o codigo da promocao desejada");
 															String codigo = in.nextLine();
 
 															PromocaoProduto pp = new PromocaoProduto();
 
-															try
-															{
-																pp = Fachada.getInstancia().buscarPromocaoProduto(codigo);
+															try {
+																pp = Fachada.getInstancia()
+																		.buscarPromocaoProduto(codigo);
 
 																venda.comprarPromoProduto(pp);
 																somethingcomprado++;
-																System.out.println("Pedido adicionado ao carrinho com sucesso");
+																System.out.println(
+																		"Pedido adicionado ao carrinho com sucesso");
 
-															}
-															catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
-																System.out.println("Id do objeto nao encontrado: " + exc.getidObjeto());
+																System.out.println("Id do objeto nao encontrado: "
+																		+ exc.getidObjeto());
 															}
 
-
-
+														} else {
+															System.out.println(
+																	"Nenhuma promocao de produto cadastrada no estoque");
 														}
-														else
-														{
-															System.out.println("Nenhuma promocao de produto cadastrada no estoque");
-														}
-														break; // BREAK DA FUNCAO DE COMPRA DE PROMOCAO DE PRODOUTO
-
+														break; // BREAK DA
+																// FUNCAO DE
+																// COMPRA DE
+																// PROMOCAO DE
+																// PRODOUTO
 
 													case '4':
-														if( contPromoCombo > 0 )
-														{
-															System.out.println("============Promocoes de combo============\n"
-																	+ Fachada.getInstancia().listarCombosPromotion());
+														if (contPromoCombo > 0) {
+															System.out.println(
+																	"============Promocoes de combo============\n"
+																			+ Fachada.getInstancia()
+																					.listarCombosPromotion());
 
-
-
-															System.out.println("\nDigite o codigo da promocao desejada:");
+															System.out
+																	.println("\nDigite o codigo da promocao desejada:");
 															String codigo = in.nextLine();
 
 															PromocaoCombo pc = new PromocaoCombo();
-															try
-															{
+															try {
 
 																pc = Fachada.getInstancia().buscarPromocaoCombo(codigo);
 																venda.comprarPromoCombo(pc);
 																somethingcomprado++;
-																System.out.println("Pedido adicionado ao carrinho com sucesso");
+																System.out.println(
+																		"Pedido adicionado ao carrinho com sucesso");
 
-															}
-															catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
-																System.out.println("Id do objeto: " + exc.getidObjeto());
+																System.out
+																		.println("Id do objeto: " + exc.getidObjeto());
 															}
 
-														}
-														else
-														{
-															System.out.println("Nenhuma promocao de produto cadastrada no estoque");
+														} else {
+															System.out.println(
+																	"Nenhuma promocao de produto cadastrada no estoque");
 														}
 
-														break; // BREAK DA FUNCAO DE COMPRA DE PROMOCAO DE COMBO
-
+														break; // BREAK DA
+																// FUNCAO DE
+																// COMPRA DE
+																// PROMOCAO DE
+																// COMBO
 
 													case '5':
 
+														if (somethingcomprado > 0) {
 
-														if(somethingcomprado > 0)
-														{
-
-															System.out.println("O pedido tem o valor de: " + venda.getValorTotal() +"\n");
+															System.out.println("O pedido tem o valor de: "
+																	+ venda.getValorTotal() + "\n");
 															boolean resultado100 = false;
 															int contcompraerro = 0;
-															do
-															{
-																System.out.println("Digite sua senha para confirmar o pedido");
+															do {
+																System.out.println(
+																		"Digite sua senha para confirmar o pedido");
 																String confirmasenha = in.nextLine();
 
-																boolean resultado1000 = confirmasenha.equals(tempSenhaAdmin);
+																boolean resultado1000 = confirmasenha
+																		.equals(tempSenhaAdmin);
 
-																if(resultado1000 == true)
-																{
+																if (resultado1000 == true) {
 
 																	Fachada.getInstancia().cadastrarVenda(venda);
 
 																	resultado100 = true;
 
-																}
-																else
-																{
+																} else {
 																	contcompraerro++;
 																	System.out.println("Senha incorreta");
 																}
 
-																if(contcompraerro == 7)
-																{
+																if (contcompraerro == 7) {
 																	break;
 
 																}
-															}while( resultado100 == false);
+															} while (resultado100 == false);
 
-															if(resultado100 == true)
-															{
-																System.out.println("Compra realizada com sucesso\nPressione enter para continuar");
+															if (resultado100 == true) {
+																System.out.println(
+																		"Compra realizada com sucesso\nPressione enter para continuar");
 																in.nextLine();
 																aux40 = 6;
 															}
-															if( contcompraerro == 7)
-															{
-																System.out.println("Limite de tentativas excedida\nPressione enter para continuar");
+															if (contcompraerro == 7) {
+																System.out.println(
+																		"Limite de tentativas excedida\nPressione enter para continuar");
 																contVenda--;
 																in.nextLine();
-																aux40= 6;
+																aux40 = 6;
 															}
-														}
-														else
-														{
+														} else {
 															System.out.println("Nenhum pedido realizado");
 														}
 														break; //
 
 													case '6':
-														if(somethingcomprado > 0)
-														{
+														if (somethingcomprado > 0) {
 															int aux8000 = 0;
 
-															while( aux8000 != 5)
-															{
+															while (aux8000 != 5) {
 
-
-																System.out.println("===========Remover do carrinho==============");
+																System.out.println(
+																		"===========Remover do carrinho==============");
 																System.out.println("1 - Produto");
 																System.out.println("2 - Combo");
 																System.out.println("3 - Promocao de Produto");
@@ -2382,50 +2125,43 @@ public class Menu {
 																opcao = in.next().charAt(0);
 																in.nextLine();
 
-
-																switch(opcao)
-																{
+																switch (opcao) {
 
 																case '1':
 
-																	System.out.println("Digite o id do produto a ser removido");
+																	System.out.println(
+																			"Digite o id do produto a ser removido");
 																	String onemoretime = in.nextLine();
 
 																	Produto p = new Produto();
 																	p = venda.BuscarProduto(onemoretime);
 
-																	if( p.getCodigo() != null)
-																	{
+																	if (p.getCodigo() != null) {
 																		somethingcomprado--;
 																		venda.removerProduto(onemoretime);
-																		System.out.println("Produto removido com sucesso");
-																	}
-																	else
-																	{
+																		System.out.println(
+																				"Produto removido com sucesso");
+																	} else {
 																		System.out.println("pedido nao realizado");
 																	}
-
-
-
 
 																	break;
 
 																case '2':
 
-																	System.out.println("Digite o id do combo a ser removido");
+																	System.out.println(
+																			"Digite o id do combo a ser removido");
 																	String onemoretime1 = in.nextLine();
 
 																	Combo c = new Combo();
 																	c = venda.BuscarCombo(onemoretime1);
 
-																	if( c.getCodigo() != null)
-																	{
+																	if (c.getCodigo() != null) {
 																		somethingcomprado--;
 																		venda.removerCombo(onemoretime1);
-																		System.out.println("Combo removido com sucesso");
-																	}
-																	else
-																	{
+																		System.out
+																				.println("Combo removido com sucesso");
+																	} else {
 																		System.out.println("pedido nao realizado");
 																	}
 
@@ -2433,20 +2169,19 @@ public class Menu {
 
 																case '3':
 
-																	System.out.println("Digite o id da promocao de produto a ser removida");
+																	System.out.println(
+																			"Digite o id da promocao de produto a ser removida");
 																	String onemoretime2 = in.nextLine();
 
 																	PromocaoProduto pp = new PromocaoProduto();
 																	pp = venda.BuscarPromoProduto(onemoretime2);
 
-																	if( pp.getIdPromocao() != null)
-																	{
+																	if (pp.getIdPromocao() != null) {
 																		somethingcomprado--;
 																		venda.removerPromoProduto(onemoretime2);
-																		System.out.println("Promocao de produto removida com sucesso");
-																	}
-																	else
-																	{
+																		System.out.println(
+																				"Promocao de produto removida com sucesso");
+																	} else {
 																		System.out.println("pedido nao realizado");
 																	}
 
@@ -2454,25 +2189,23 @@ public class Menu {
 
 																case '4':
 
-																	System.out.println("Digite o id da promocao de combo a ser removida");
+																	System.out.println(
+																			"Digite o id da promocao de combo a ser removida");
 																	String onemoretime3 = in.nextLine();
 
 																	PromocaoCombo pc = new PromocaoCombo();
 																	pc = venda.BuscarPromoCombo(onemoretime3);
 
-																	if( pc.getIdPromocao() != null)
-																	{
+																	if (pc.getIdPromocao() != null) {
 																		somethingcomprado--;
 																		venda.removerPromoCombo(onemoretime3);
-																		System.out.println("Promocao de combo removida com sucesso");
-																	}
-																	else
-																	{
+																		System.out.println(
+																				"Promocao de combo removida com sucesso");
+																	} else {
 																		System.out.println("pedido nao realizado");
 																	}
 
 																	break;
-
 
 																case '5':
 
@@ -2484,9 +2217,6 @@ public class Menu {
 
 																	break;
 
-
-
-
 																}
 															}
 														}
@@ -2494,13 +2224,10 @@ public class Menu {
 														break;
 
 													case '7':
-														if(somethingcomprado > 0)
-														{
+														if (somethingcomprado > 0) {
 															System.out.println(venda.toString());
 															in.nextLine();
-														}
-														else
-														{
+														} else {
 															System.out.println("Nenhum pedido realizado");
 														}
 
@@ -2514,29 +2241,24 @@ public class Menu {
 														break;
 
 													default:
-														System.out.println("Opcao invalida");							
+														System.out.println("Opcao invalida");
 
-
-													}						
+													}
 
 												} // END DO WHILE
 
-											}
-											else
-											{
+											} else {
 												System.out.println("Cliente nao encontrado no sistema");
 											}
 
-											break; // END DO CASE DE FAZER PEDIDO
+											break; // END DO CASE DE FAZER
+													// PEDIDO
 
 										case '2':
 
-											if(contVenda > 0)
-											{
+											if (contVenda > 0) {
 												System.out.println(Fachada.getInstancia().listarVendas());
-											}
-											else
-											{
+											} else {
 												System.out.println("Nenhuma venda realizada");
 											}
 											break;
@@ -2551,21 +2273,16 @@ public class Menu {
 											System.out.println("opcao invalida");
 											break;
 
-
 										}// END DO SWITCH PRINCIPAL
 
-
-									}// END DO WHILE
-								}// END DO IF
-								else
-								{
+									} // END DO WHILE
+								} // END DO IF
+								else {
 									System.out.println("Nenhum produto cadastrado no estoque");
 								}
 
-
-
-
-								break; // BREAK DO TERMINO DO CASE DE GERENCIAMENTO DE VENDAS
+								break; // BREAK DO TERMINO DO CASE DE
+										// GERENCIAMENTO DE VENDAS
 
 							case 's':
 								auxadmin = 10;
@@ -2615,7 +2332,6 @@ public class Menu {
 
 							} while (result3 != true);
 
-
 							int auxfunc = 0;
 							while (auxfunc != 4) {
 								System.out.println("-----------Bem-Vindo-----------");
@@ -2629,13 +2345,13 @@ public class Menu {
 
 								switch (opcao) {
 
-
 								case '1':
 
 									int b10 = 0;
 
 									while (b10 != 5) {
-										System.out.println("===================Gerenciamento de clientes=================");
+										System.out.println(
+												"===================Gerenciamento de clientes=================");
 										System.out.println("1 - Adicionar:");
 										System.out.println("2 - Remover:");
 										System.out.println("3 - Alterar dados:");
@@ -2711,21 +2427,17 @@ public class Menu {
 
 										case '2':
 
-
 											if (contCliente > 0) {
 												System.out.println("Digite o ID do Cliente: ");
 												String auxIdCliente = in.nextLine();
 
-												try
-												{
+												try {
 
 													Fachada.getInstancia().removerCliente(auxIdCliente);
 													contCliente--;
 													System.out.println("Cliente removido com sucesso");
 
-												}
-												catch(ONFException exc)
-												{
+												} catch (ONFException exc) {
 													System.out.println(exc.getMessage());
 												}
 
@@ -2735,7 +2447,7 @@ public class Menu {
 											}
 
 											break; // TERMINO DO CASE 2 D
-											// GERENCIAMENTO D CLIENTES
+										// GERENCIAMENTO D CLIENTES
 
 										case '3':
 
@@ -2750,8 +2462,7 @@ public class Menu {
 
 												Cliente c = new Cliente();
 
-												try
-												{
+												try {
 
 													c = Fachada.getInstancia().procurarCliente(idd);
 
@@ -2788,17 +2499,16 @@ public class Menu {
 															System.out.println("Digite o telefone:");
 															String telefonee = in.nextLine();
 
-															Endereco endtwo = new Endereco(ruaa, bairroo, cidadee, estadoo,
-																	numeroo, telefonee);
+															Endereco endtwo = new Endereco(ruaa, bairroo, cidadee,
+																	estadoo, numeroo, telefonee);
 
-															try
-															{
+															try {
 
-																Fachada.getInstancia().atualizarClienteendereco(idd,endtwo);
+																Fachada.getInstancia().atualizarClienteendereco(idd,
+																		endtwo);
 																System.out.println("Alteracao realizada com sucesso!");
 
-															}catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
 																System.out.println(exc.getMessage());
 															}
 
@@ -2815,21 +2525,15 @@ public class Menu {
 															System.out.println("Digite a senha nova");
 															newsenha = in.nextLine();
 
-															try
-															{
-																Fachada.getInstancia().alterarSenhaCliente(idd, oldsenha, newsenha);
+															try {
+																Fachada.getInstancia().alterarSenhaCliente(idd,
+																		oldsenha, newsenha);
 																System.out.println("Senha modificado com sucesso");
-															}
-															catch(ONFException exc)
-															{
+															} catch (ONFException exc) {
+																System.out.println(exc.getMessage());
+															} catch (WPException exc) {
 																System.out.println(exc.getMessage());
 															}
-															catch(WPException exc)
-															{
-																System.out.println(exc.getMessage());
-															}
-
-
 
 															break;
 
@@ -2845,15 +2549,10 @@ public class Menu {
 														}
 													}
 
-
-
-												}																								
-												catch(ONFException exc)
-												{
+												} catch (ONFException exc) {
 													System.out.println(exc.getMessage());
 												}
-											}
-											else {
+											} else {
 												System.out.println(
 														"Impossivel realizar acao, o sistema nao possui clientes cadastrados");
 											}
@@ -2871,7 +2570,7 @@ public class Menu {
 											}
 
 											break; // TERMINO DO CASE 4 D
-											// GERENCIAMENTO D CLIENTES
+										// GERENCIAMENTO D CLIENTES
 
 										case '5':
 											b10 = 5;
@@ -2884,18 +2583,17 @@ public class Menu {
 										}
 									}
 
-
 									break; // END DO CASE 2 GERENCIAR CLIENTES
 
 								case '2':
 
-									if( contCombo > 0 || contProduto > 0 || contPromoCombo > 0 || contPromoProduto > 0)
-									{
+									if (contCombo > 0 || contProduto > 0 || contPromoCombo > 0
+											|| contPromoProduto > 0) {
 										int v20 = 0;
 
 										while (v20 != 3) {
-											System.out.println(
-													"=====================Gerenciar Vendas==================");
+											System.out
+													.println("=====================Gerenciar Vendas==================");
 											System.out.println("1 - Fazer pedido");
 											System.out.println("2 - Mostrar historico de vendas");
 											System.out.println("3 - Sair");
@@ -2922,14 +2620,11 @@ public class Menu {
 													System.out.println(e.getMessage());
 												}
 
-												if(c1.getId() != null)
-												{
+												if (c1.getId() != null) {
 													contVenda++;
 													Venda venda = new Venda(contVenda, tempId);
 
-													while( aux40 != 6)
-													{
-
+													while (aux40 != 6) {
 
 														System.out.println("===========Compra==============");
 														System.out.println("1 - Produto");
@@ -2945,21 +2640,17 @@ public class Menu {
 														opcao = in.next().charAt(0);
 														in.nextLine();
 
-
-														switch(opcao)
-														{
-
+														switch (opcao) {
 
 														case '1':
 
 															if (contProduto > 0) {
-																System.out.println(
-																		"----------Produtos----------\n" + Fachada.getInstancia().listarProdutos());
+																System.out.println("----------Produtos----------\n"
+																		+ Fachada.getInstancia().listarProdutos());
 
-
-																try
-																{
-																	System.out.println("\nDigite o codigo do Produto que voce deseja");
+																try {
+																	System.out.println(
+																			"\nDigite o codigo do Produto que voce deseja");
 																	String codigo = in.nextLine();
 
 																	Produto p = new Produto();
@@ -2968,34 +2659,36 @@ public class Menu {
 
 																	venda.comprarProduto(p);
 																	somethingcomprado++;
-																	System.out.println("Pedido adicionado ao carrinho com sucesso");
+																	System.out.println(
+																			"Pedido adicionado ao carrinho com sucesso");
 
-																}	
-																catch(ONFException exc)
-																{
+																} catch (ONFException exc) {
 																	System.out.println(exc.getMessage());
 																	System.out.println(exc.getidObjeto());
 																}
 
-
 															} else {
-																System.out.println("Nenhum produto cadastrado no estoque");
+																System.out.println(
+																		"Nenhum produto cadastrado no estoque");
 															}
 
-															break; // BREAK DA FUNCAO DE COMPRA PRODUTO
-
+															break; // BREAK DA
+																	// FUNCAO DE
+																	// COMPRA
+																	// PRODUTO
 
 														case '2':
 
-															if( contCombo > 0)
-															{
+															if (contCombo > 0) {
 
-																System.out.println(" ==================Combos =================\n" + Fachada.getInstancia().listarCombos());
+																System.out.println(
+																		" ==================Combos =================\n"
+																				+ Fachada.getInstancia()
+																						.listarCombos());
 
-
-																try
-																{
-																	System.out.println("\nDigite o codigo do combo que voce deseja");
+																try {
+																	System.out.println(
+																			"\nDigite o codigo do combo que voce deseja");
 																	String codigo = in.nextLine();
 
 																	Combo c = new Combo();
@@ -3004,121 +2697,123 @@ public class Menu {
 
 																	venda.comprarCombo(c);
 																	somethingcomprado++;
-																	System.out.println("Pedido adicionado ao carrinho com sucesso");
-																}
-																catch(ONFException exc)
-																{
+																	System.out.println(
+																			"Pedido adicionado ao carrinho com sucesso");
+																} catch (ONFException exc) {
 																	System.out.println(exc.getMessage());
-																	System.out.println("Id do objeto nao encontrado: " + exc.getidObjeto());
+																	System.out.println("Id do objeto nao encontrado: "
+																			+ exc.getidObjeto());
 																}
 
-
-
-															}
-															else
-															{
-																System.out.println("Nenhum combo cadastrado no estoque");
+															} else {
+																System.out
+																		.println("Nenhum combo cadastrado no estoque");
 															}
 
-															break; // BREAK DA FUNCAO DE COMPRA DE COMBO
+															break; // BREAK DA
+																	// FUNCAO DE
+																	// COMPRA DE
+																	// COMBO
 
 														case '3':
 
-															if( contPromoProduto > 0)
-															{
-																System.out.println("===============Promocoes de produto===========\n"
-																		+ Fachada.getInstancia().listarProdutoPromotion());
+															if (contPromoProduto > 0) {
+																System.out.println(
+																		"===============Promocoes de produto===========\n"
+																				+ Fachada.getInstancia()
+																						.listarProdutoPromotion());
 
-
-
-																System.out.println("\nDigite o codigo da promocao desejada");
+																System.out.println(
+																		"\nDigite o codigo da promocao desejada");
 																String codigo = in.nextLine();
 
 																PromocaoProduto pp = new PromocaoProduto();
 
-																try
-																{
-																	pp = Fachada.getInstancia().buscarPromocaoProduto(codigo);
+																try {
+																	pp = Fachada.getInstancia()
+																			.buscarPromocaoProduto(codigo);
 
 																	venda.comprarPromoProduto(pp);
 																	somethingcomprado++;
-																	System.out.println("Pedido adicionado ao carrinho com sucesso");
+																	System.out.println(
+																			"Pedido adicionado ao carrinho com sucesso");
 
-																}
-																catch(ONFException exc)
-																{
+																} catch (ONFException exc) {
 																	System.out.println(exc.getMessage());
-																	System.out.println("Id do objeto nao encontrado: " + exc.getidObjeto());
+																	System.out.println("Id do objeto nao encontrado: "
+																			+ exc.getidObjeto());
 																}
 
-
-
-															}
-															else
-															{
-																System.out.println("Nenhuma promocao de produto cadastrada no estoque");
+															} else {
+																System.out.println(
+																		"Nenhuma promocao de produto cadastrada no estoque");
 															}
 
-															break; // BREAK DA FUNCAO DE COMPRA DE PROMOCAO DE PRODOUTO
-
+															break; // BREAK DA
+																	// FUNCAO DE
+																	// COMPRA DE
+																	// PROMOCAO
+																	// DE
+																	// PRODOUTO
 
 														case '4':
 
-															if( contPromoCombo > 0 )
-															{
-																System.out.println("============Promocoes de combo============\n"
-																		+ Fachada.getInstancia().listarCombosPromotion());
+															if (contPromoCombo > 0) {
+																System.out.println(
+																		"============Promocoes de combo============\n"
+																				+ Fachada.getInstancia()
+																						.listarCombosPromotion());
 
-
-
-																System.out.println("\nDigite o codigo da promocao desejada:");
+																System.out.println(
+																		"\nDigite o codigo da promocao desejada:");
 																String codigo = in.nextLine();
 
 																PromocaoCombo pc = new PromocaoCombo();
-																try
-																{
+																try {
 
-																	pc = Fachada.getInstancia().buscarPromocaoCombo(codigo);
+																	pc = Fachada.getInstancia()
+																			.buscarPromocaoCombo(codigo);
 																	venda.comprarPromoCombo(pc);
 																	somethingcomprado++;
-																	System.out.println("Pedido adicionado ao carrinho com sucesso");
+																	System.out.println(
+																			"Pedido adicionado ao carrinho com sucesso");
 
-																}
-																catch(ONFException exc)
-																{
+																} catch (ONFException exc) {
 																	System.out.println(exc.getMessage());
-																	System.out.println("Id do objeto: " + exc.getidObjeto());
+																	System.out.println(
+																			"Id do objeto: " + exc.getidObjeto());
 																}
 
-															}
-															else
-															{
-																System.out.println("Nenhuma promocao de produto cadastrada no estoque");
+															} else {
+																System.out.println(
+																		"Nenhuma promocao de produto cadastrada no estoque");
 															}
 
-															break; // BREAK DA FUNCAO DE COMPRA DE PROMOCAO DE COMBO
-
+															break; // BREAK DA
+																	// FUNCAO DE
+																	// COMPRA DE
+																	// PROMOCAO
+																	// DE COMBO
 
 														case '5':
 
+															if (somethingcomprado > 0) {
 
-															if(somethingcomprado > 0)
-															{
-
-																System.out.println("O pedido tem o valor de: " + venda.getValorTotal() +"\n");
+																System.out.println("O pedido tem o valor de: "
+																		+ venda.getValorTotal() + "\n");
 																boolean resultado100 = false;
 																int contcompraerro = 0;
-																do
-																{
-																	System.out.println("Digite sua senha para confirmar o pedido");
+																do {
+																	System.out.println(
+																			"Digite sua senha para confirmar o pedido");
 																	String confirmasenha = in.nextLine();
 
 																	boolean resultado1000 = false;
 																	try {
-																		resultado100 = Fachada.getInstancia().loginFuncionario(tempId2, confirmasenha);
+																		resultado100 = Fachada.getInstancia()
+																				.loginFuncionario(tempId2,
+																						confirmasenha);
 																		Fachada.getInstancia().cadastrarVenda(venda);
-
-
 
 																	} catch (ONFException e) {
 																		System.out.println(e.getMessage());
@@ -3128,30 +2823,26 @@ public class Menu {
 																		System.out.println(e.getMessage());
 																	}
 
-																}while( resultado100 == false);
+																} while (resultado100 == false);
 
-																System.out.println("Compra realizada com sucesso\nPressione enter para continuar");
+																System.out.println(
+																		"Compra realizada com sucesso\nPressione enter para continuar");
 																in.nextLine();
 																aux40 = 6;
 
-
-															}
-															else
-															{
+															} else {
 																System.out.println("Nenhum pedido realizado");
 															}
 															break; //
 
 														case '6':
-															if(somethingcomprado > 0)
-															{
+															if (somethingcomprado > 0) {
 																int aux8000 = 0;
 
-																while( aux8000 != 5)
-																{
+																while (aux8000 != 5) {
 
-
-																	System.out.println("===========Remover do carrinho==============");
+																	System.out.println(
+																			"===========Remover do carrinho==============");
 																	System.out.println("1 - Produto");
 																	System.out.println("2 - Combo");
 																	System.out.println("3 - Promocao de Produto");
@@ -3162,50 +2853,43 @@ public class Menu {
 																	opcao = in.next().charAt(0);
 																	in.nextLine();
 
-
-																	switch(opcao)
-																	{
+																	switch (opcao) {
 
 																	case '1':
 
-																		System.out.println("Digite o id do produto a ser removido");
+																		System.out.println(
+																				"Digite o id do produto a ser removido");
 																		String onemoretime = in.nextLine();
 
 																		Produto p = new Produto();
 																		p = venda.BuscarProduto(onemoretime);
 
-																		if( p.getCodigo() != null)
-																		{
+																		if (p.getCodigo() != null) {
 																			somethingcomprado--;
 																			venda.removerProduto(onemoretime);
-																			System.out.println("Produto removido com sucesso");
-																		}
-																		else
-																		{
+																			System.out.println(
+																					"Produto removido com sucesso");
+																		} else {
 																			System.out.println("pedido nao realizado");
 																		}
-
-
-
 
 																		break;
 
 																	case '2':
 
-																		System.out.println("Digite o id do combo a ser removido");
+																		System.out.println(
+																				"Digite o id do combo a ser removido");
 																		String onemoretime1 = in.nextLine();
 
 																		Combo c = new Combo();
 																		c = venda.BuscarCombo(onemoretime1);
 
-																		if( c.getCodigo() != null)
-																		{
+																		if (c.getCodigo() != null) {
 																			somethingcomprado--;
 																			venda.removerCombo(onemoretime1);
-																			System.out.println("Combo removido com sucesso");
-																		}
-																		else
-																		{
+																			System.out.println(
+																					"Combo removido com sucesso");
+																		} else {
 																			System.out.println("pedido nao realizado");
 																		}
 
@@ -3213,20 +2897,19 @@ public class Menu {
 
 																	case '3':
 
-																		System.out.println("Digite o id da promocao de produto a ser removida");
+																		System.out.println(
+																				"Digite o id da promocao de produto a ser removida");
 																		String onemoretime2 = in.nextLine();
 
 																		PromocaoProduto pp = new PromocaoProduto();
 																		pp = venda.BuscarPromoProduto(onemoretime2);
 
-																		if( pp.getIdPromocao() != null)
-																		{
+																		if (pp.getIdPromocao() != null) {
 																			somethingcomprado--;
 																			venda.removerPromoProduto(onemoretime2);
-																			System.out.println("Promocao de produto removida com sucesso");
-																		}
-																		else
-																		{
+																			System.out.println(
+																					"Promocao de produto removida com sucesso");
+																		} else {
 																			System.out.println("pedido nao realizado");
 																		}
 
@@ -3234,25 +2917,23 @@ public class Menu {
 
 																	case '4':
 
-																		System.out.println("Digite o id da promocao de combo a ser removida");
+																		System.out.println(
+																				"Digite o id da promocao de combo a ser removida");
 																		String onemoretime3 = in.nextLine();
 
 																		PromocaoCombo pc = new PromocaoCombo();
 																		pc = venda.BuscarPromoCombo(onemoretime3);
 
-																		if( pc.getIdPromocao() != null)
-																		{
+																		if (pc.getIdPromocao() != null) {
 																			somethingcomprado--;
 																			venda.removerPromoCombo(onemoretime3);
-																			System.out.println("Promocao de combo removida com sucesso");
-																		}
-																		else
-																		{
+																			System.out.println(
+																					"Promocao de combo removida com sucesso");
+																		} else {
 																			System.out.println("pedido nao realizado");
 																		}
 
 																		break;
-
 
 																	case '5':
 
@@ -3264,9 +2945,6 @@ public class Menu {
 
 																		break;
 
-
-
-
 																	}
 																}
 															}
@@ -3274,13 +2952,10 @@ public class Menu {
 															break;
 
 														case '7':
-															if(somethingcomprado > 0)
-															{
+															if (somethingcomprado > 0) {
 																System.out.println(venda.toString());
 																in.nextLine();
-															}
-															else
-															{
+															} else {
 																System.out.println("Nenhum pedido realizado");
 															}
 
@@ -3294,29 +2969,24 @@ public class Menu {
 															break;
 
 														default:
-															System.out.println("Opcao invalida");							
+															System.out.println("Opcao invalida");
 
-
-														}						
+														}
 
 													} // END DO WHILE
 
-												}
-												else
-												{
+												} else {
 													System.out.println("Cliente nao encontrado no sistema");
 												}
 
-												break; // END DO CASE DE FAZER PEDIDO
+												break; // END DO CASE DE FAZER
+														// PEDIDO
 
 											case '2':
 
-												if(contVenda > 0)
-												{
+												if (contVenda > 0) {
 													System.out.println(Fachada.getInstancia().listarVendas());
-												}
-												else
-												{
+												} else {
 													System.out.println("Nenhuma venda realizada");
 												}
 												break;
@@ -3331,33 +3001,25 @@ public class Menu {
 												System.out.println("opcao invalida");
 												break;
 
-
 											}// END DO SWITCH PRINCIPAL
 
-
-										}// END DO WHILE
-									}// END DO IF
-									else
-									{
+										} // END DO WHILE
+									} // END DO IF
+									else {
 										System.out.println("Nenhum produto cadastrado no estoque");
 									}
 
-
 									break; // END DO CASE 3 GERENCIAR VENDAS
-
 
 								case '3':
 									auxfunc = 4;
 									break; // END DO CASE 4
-
 
 								default:
 
 									System.out.println("Opcao invalida");
 
 									break; // END DO DEFAULT
-
-
 
 								} // END DO SWITWCH DE FUNCIONARIO
 

@@ -15,7 +15,7 @@ import br.ufrpe.fastFood.exceptions.ONFException;
 import br.ufrpe.fastFood.interfaces.RepositorioProdutoInterface;;
 
 public class RepositorioProdutos implements RepositorioProdutoInterface, Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -33,29 +33,23 @@ public class RepositorioProdutos implements RepositorioProdutoInterface, Seriali
 		}
 		return instancia;
 	}
-	
 
 	public void cadastrarProduto(Produto p) throws OJEException {
 
 		int cont = 0;
-		
-		for(int x = 0 ; x < this.listaProdutos.size() ; x++)
-		{
-			if(this.listaProdutos.get(x).getCodigo().equals(p.getCodigo()))
-			{
+
+		for (int x = 0; x < this.listaProdutos.size(); x++) {
+			if (this.listaProdutos.get(x).getCodigo().equals(p.getCodigo())) {
 				cont++;
 			}
 		}
-		
-		if(cont > 0)
-		{
+
+		if (cont > 0) {
 			throw new OJEException(p.getCodigo());
-		}
-		else
-		{
+		} else {
 			this.listaProdutos.add(p);
 		}
-		
+
 	}
 
 	public Produto buscarProduto(String codigo) throws ONFException {
@@ -66,9 +60,7 @@ public class RepositorioProdutos implements RepositorioProdutoInterface, Seriali
 
 		if (i >= 0) {
 			resultado = this.listaProdutos.get(i);
-		}
-		else
-		{
+		} else {
 			throw new ONFException(codigo);
 		}
 
@@ -81,7 +73,7 @@ public class RepositorioProdutos implements RepositorioProdutoInterface, Seriali
 		p = this.buscarProduto(codigo);
 
 		if (p.getCodigo() != null) {
-			
+
 			this.listaProdutos.remove(p);
 		}
 
@@ -92,16 +84,13 @@ public class RepositorioProdutos implements RepositorioProdutoInterface, Seriali
 		Produto p = new Produto();
 		p = this.buscarProduto(codigo);
 
-		if(p.getCodigo() != null)
-		{
+		if (p.getCodigo() != null) {
 			p.setValor(newvalor);
 		}
-		
-		
+
 	}
 
 	public boolean existeProduto(String codigo) {
-
 
 		boolean resultado = false;
 
@@ -130,33 +119,33 @@ public class RepositorioProdutos implements RepositorioProdutoInterface, Seriali
 
 		return this.listaProdutos;
 	}
-	
-	//AREA DE PERSISTENCIA DE DADOS
 
-	private static RepositorioProdutos load(){
-		RepositorioProdutos repProdutos =  null;
+	// AREA DE PERSISTENCIA DE DADOS
+
+	private static RepositorioProdutos load() {
+		RepositorioProdutos repProdutos = null;
 
 		File arquivoProduto = new File("RepositorioProdutos.dat");
 
 		FileInputStream fInput = null;
 		ObjectInputStream oInput = null;
 
-		try{
+		try {
 			fInput = new FileInputStream(arquivoProduto);
 			oInput = new ObjectInputStream(fInput);
-			
+
 			Object o = oInput.readObject();
 
 			repProdutos = (RepositorioProdutos) o;
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			repProdutos = new RepositorioProdutos();
-		}finally{
-			if (oInput != null){
-				try{
+		} finally {
+			if (oInput != null) {
+				try {
 					oInput.close();
-				}catch(IOException e){
-					System.out.println("Não foi possível fechar o arquivo!");
+				} catch (IOException e) {
+					System.out.println("Nï¿½o foi possï¿½vel fechar o arquivo!");
 					e.printStackTrace();
 				}
 			}
@@ -165,34 +154,33 @@ public class RepositorioProdutos implements RepositorioProdutoInterface, Seriali
 		return repProdutos;
 	}
 
-
-	public void save(){
-		if(instancia == null){
+	public void save() {
+		if (instancia == null) {
 			return;
 		}
 
 		File arquivoProdutos = new File("RepositorioProdutos.dat");
-		FileOutputStream fOutput =  null;
+		FileOutputStream fOutput = null;
 		ObjectOutputStream oOutput = null;
 
-		try{
-			if(!arquivoProdutos.exists())
+		try {
+			if (!arquivoProdutos.exists())
 				arquivoProdutos.createNewFile();
 
 			fOutput = new FileOutputStream(arquivoProdutos);
 			oOutput = new ObjectOutputStream(fOutput);
 			oOutput.writeObject(instancia);
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 
-		}finally{
-			if(oOutput != null){
-				try{
+		} finally {
+			if (oOutput != null) {
+				try {
 
 					oOutput.close();
 
-				}catch(IOException e){
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}

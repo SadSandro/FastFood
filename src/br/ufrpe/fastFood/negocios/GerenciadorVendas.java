@@ -47,7 +47,6 @@ public class GerenciadorVendas {
 
 	}
 
-
 	public List<Venda> listarVendas() {
 	
 			return this.repositorio.listarVendas();

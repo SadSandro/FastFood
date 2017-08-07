@@ -24,6 +24,7 @@ public class RepositorioFuncionarios implements RepositorioFuncionarioInterface,
 	 * 
 	 */
 	private static final long serialVersionUID = 8995952940637472088L;
+	
 	private static RepositorioFuncionarios instancia;
 	private ArrayList<Funcionario> listaFuncionarios;
 
@@ -56,9 +57,6 @@ public class RepositorioFuncionarios implements RepositorioFuncionarioInterface,
 		}else{
 			this.listaFuncionarios.add(f);
 		}
-				
-		
-		
 	}
 
 	public Funcionario buscarFuncionario(String id) throws ONFException {
